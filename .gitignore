@@ -1,0 +1,6 @@
+.DS_Store
+.claude/
+
+# Source originals (the site uses the processed copies in assets/)
+Picture.jpeg
+Résumé-DelaCruz-UPHSL.pdf
