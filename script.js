@@ -12,7 +12,7 @@ const SITE = {
   status: "Developer intern at CloudSwyft",
   intro: [
     "I'm a web developer who loves building SaaS products and full-stack web apps. I'm currently a developer intern at CloudSwyft and a 4th-year BSIT student specializing in game development.",
-    "Right now I'm building web systems like the lab queueing platform for Carmona's City Health Office, plus SDG-aligned capstone games at school. I love turning rough ideas into things people actually use.",
+    "Right now I'm building Folio, a browser-based editor for interactive ebooks, alongside SDG-aligned capstone games at school. I love turning rough ideas into things people actually use.",
   ],
   social: [
     { label: "github", href: "https://github.com/makheyl" },
@@ -65,64 +65,146 @@ const PAGES = {
 
 /* ---------- Home stats (value, label, link) ---------- */
 const STATS = [
-  { value: "8+", label: "Projects", href: "projects.html" },
+  { value: "10+", label: "Projects", href: "projects.html" },
   { value: "3", label: "Capstone titles", href: "projects.html#shhkool" },
   { value: "4th yr", label: "BSIT", href: "experience.html#uphsl" },
   { value: "Intern", label: "@ CloudSwyft", href: "experience.html#cloudswyft" },
 ];
 
 /* ---------- Projects ----------
-   Listed in display order (web first).
+   Listed in display order (web first). Content mirrors the READMEs on
+   github.com/makheyl.
    badge:     filled pill
    tags:      outlined pills
    icon:      Lucide icon name used as a placeholder app icon
    image:     optional path to a real app icon (overrides `icon`)
-   links:     GitHub / Live Demo buttons (empty array = private project)
+   links:     buttons; type "github" or "demo", optional `label` overrides the text
+              (empty array = no public links, shows `note`)
    builtWith: optional footer row
 */
+const GH = "https://github.com/makheyl/";
+
 const PROJECTS = [
   {
-    id: "music-mashup",
-    name: "Music Mashup Tool",
-    subtitle: "AI Audio",
-    description: "A browser-based mashup tool with automatic key and BPM detection.",
+    id: "folio",
+    name: "Folio",
+    subtitle: "Interactive Ebook Editor",
+    description: "A browser-based editor for interactive, animated ebooks, like a simplified Canva built around book pages. Every book exports as one standalone HTML file that works offline with no install or account.",
     badge: "Web app",
-    tags: ["AI", "Audio"],
-    icon: "audio-lines",
+    tags: ["TypeScript", "Offline export"],
+    icon: "book-open",
     image: null, // TODO: add app icon
     links: [
-      { type: "github", href: "https://github.com/makheyl" }, // TODO: point to the repo
-      { type: "demo", href: "#" }, // TODO: live demo URL
+      { type: "github", href: GH + "ebook-maker" },
+      { type: "demo", href: "https://ebook-maker-woad.vercel.app" },
     ],
-    builtWith: [], // TODO: add libraries
+    builtWith: ["React", "TypeScript", "Vite", "Tailwind CSS", "Zustand", "Dexie", "Playwright"],
+  },
+  {
+    id: "music-mixer",
+    name: "Music Mixer",
+    subtitle: "AI Mashup Analyzer",
+    description: "Detects the BPM, key, and chord progression of two songs, scores how well they mix, then time-stretches and pitch-shifts one to export a mashup, with an optional Claude-generated bridge.",
+    badge: "AI tool",
+    tags: ["Audio", "Python"],
+    icon: "audio-lines",
+    image: null, // TODO: add app icon
+    links: [{ type: "github", href: GH + "music-mixer" }],
+    builtWith: ["Python", "FastAPI", "librosa", "Tailwind CSS", "Anthropic API"],
   },
   {
     id: "studybudget",
     name: "StudyBudget",
     subtitle: "Student Finance",
-    description: "A budgeting app that helps students track allowances and spending.",
-    badge: "Web app",
+    description: "A budgeting tool that helps students track allowances and expenses, with a React client and an Express API backed by MongoDB.",
+    badge: "Full-stack",
     tags: ["Finance"],
     icon: "wallet",
     image: null, // TODO: add app icon
-    links: [
-      { type: "github", href: "https://github.com/makheyl" }, // TODO: point to the repo
-      { type: "demo", href: "#" }, // TODO: live demo URL
-    ],
-    builtWith: [], // TODO: add stack
+    links: [{ type: "github", href: GH + "student-budgeting" }],
+    builtWith: ["React", "Vite", "Tailwind CSS", "Recharts", "Node.js", "Express", "MongoDB", "JWT"],
+  },
+  {
+    id: "opd-queue",
+    name: "OPD Queue",
+    subtitle: "Out-Patient Queueing",
+    description: "A queueing system for the out-patient department of Carmona's City Health Office, with priority handling, a doctor panel for serving and transferring patients, and a public kiosk display.",
+    badge: "Public sector",
+    tags: ["Healthcare", "Government"],
+    icon: "hospital",
+    image: null, // TODO: add app icon
+    links: [{ type: "github", href: GH + "opd-queueing-cho-carmona" }],
+    builtWith: ["PHP", "MySQL", "JavaScript"],
   },
   {
     id: "lab-queue",
     name: "Lab Queue",
-    subtitle: "Health Office System",
-    description: "A queueing system for Carmona's City Health Office with priority handling, laboratory waiting queues, patient transfers, and structured reporting.",
+    subtitle: "Laboratory Queueing",
+    description: "The laboratory queue for the same office: encoder interview stations, an extraction station for phlebotomists, a kiosk board that resets itself overnight, and daily to monthly reports with CSV export.",
     badge: "Public sector",
-    tags: ["Government", "Healthcare"],
+    tags: ["Healthcare", "Government"],
     icon: "flask-conical",
     image: null, // TODO: add app icon
-    links: [], // TODO: add links if the code or a demo can be shared publicly
-    note: "Built for the City Government of Carmona, not publicly available",
-    builtWith: ["PHP", "MySQL"],
+    links: [{ type: "github", href: GH + "php-lab-queueing" }],
+    builtWith: ["PHP", "MariaDB", "JavaScript"],
+  },
+  {
+    id: "pennywise",
+    name: "PennyWise AI",
+    subtitle: "Financial Assistant",
+    description: "A group project that looks at how you actually spend and gives personalized money tips, powered by a locally run Mistral 7B model.",
+    badge: "Group project",
+    tags: ["AI", "Finance"],
+    icon: "piggy-bank",
+    image: null, // TODO: add app icon
+    links: [{ type: "github", href: GH + "financial-assistant" }],
+    builtWith: ["Python", "HTML", "Mistral 7B"],
+  },
+  {
+    id: "shhkool",
+    name: "SHHKOOL",
+    subtitle: "Classroom Noise Game",
+    description: "A classroom noise-management game played with your actual voice. Keep the room quiet through a real-time Teacher-Attention Cycle, with a keyboard fallback if there's no mic.",
+    badge: "Capstone",
+    tags: ["SDG 4", "Prototype"],
+    icon: "mic",
+    image: null, // TODO: add app icon
+    links: [
+      { type: "github", href: GH + "shhkool-ui" },
+      { type: "demo", href: "https://shhkool-ui.vercel.app" },
+    ],
+    builtWith: ["HTML", "CSS", "JavaScript"],
+  },
+  {
+    id: "terraqua-clash",
+    name: "Terraqua Clash",
+    subtitle: "Survival Arena",
+    description: "A physics-based multiplayer animal survival arena built around a real-time Tide-Shift mechanic. The prototype is a top-down arena with local multiplayer.",
+    badge: "Capstone",
+    tags: ["SDG 14", "SDG 15", "Prototype"],
+    icon: "waves",
+    image: null, // TODO: add app icon
+    links: [
+      { type: "github", href: GH + "terraqua_clash" },
+      { type: "demo", href: "https://terraqua-clash.vercel.app" },
+    ],
+    builtWith: ["JavaScript", "Canvas 2D"],
+  },
+  {
+    id: "bayanihan",
+    name: "Bayanihan",
+    subtitle: "Disaster Rescue",
+    description: "Take a bangka through a flooded coastal barangay, rescue stranded residents, and ferry them to the evacuation center. A separate 3D prototype saves each mission to a Supabase leaderboard.",
+    badge: "Capstone",
+    tags: ["SDG 11", "Prototype"],
+    icon: "sailboat",
+    image: null, // TODO: add app icon
+    links: [
+      { type: "github", href: GH + "bayanihan-rescuegame" },
+      { type: "demo", href: "https://bayanihan-rescuegame.vercel.app" },
+      { type: "github", href: GH + "Group08_DatabaseConnectivity", label: "3D + db prototype" },
+    ],
+    builtWith: ["JavaScript", "Canvas 2D", "Three.js", "Supabase"],
   },
   {
     id: "dust-and-shine",
@@ -133,56 +215,9 @@ const PROJECTS = [
     tags: ["Casual"],
     icon: "sparkles",
     image: null, // TODO: add app icon
-    links: [
-      { type: "github", href: "https://github.com/makheyl" }, // TODO: point to the repo
-      { type: "demo", href: "#" }, // TODO: live demo URL
-    ],
-    builtWith: [], // TODO: add libraries
-  },
-  {
-    id: "shhkool",
-    name: "SHHKOOL",
-    subtitle: "Classroom Noise Game",
-    description: "A multiplayer noise-meter game that reacts to real-time mic input to keep classrooms focused.",
-    badge: "Capstone",
-    tags: ["SDG 4", "In progress"],
-    icon: "mic",
-    image: null, // TODO: add app icon
-    links: [
-      { type: "github", href: "https://github.com/makheyl" }, // TODO: point to the repo
-      { type: "demo", href: "#" }, // TODO: live demo URL
-    ],
-    builtWith: [], // TODO: add engine / libraries
-  },
-  {
-    id: "terraqua-clash",
-    name: "Terraqua Clash",
-    subtitle: "Survival Arena",
-    description: "A 3D physics-based multiplayer animal survival arena with a Tide-Shift mechanic that reshapes the map.",
-    badge: "Capstone",
-    tags: ["SDG 14", "SDG 15", "In progress"],
-    icon: "waves",
-    image: null, // TODO: add app icon
-    links: [
-      { type: "github", href: "https://github.com/makheyl" }, // TODO: point to the repo
-      { type: "demo", href: "#" }, // TODO: live demo URL
-    ],
-    builtWith: [], // TODO: add engine / libraries
-  },
-  {
-    id: "bayanihan",
-    name: "Bayanihan",
-    subtitle: "Disaster Rescue",
-    description: "A 3D boat-based typhoon flood rescue game built in Unity 6.",
-    badge: "Capstone",
-    tags: ["SDG 11", "In progress"],
-    icon: "sailboat",
-    image: null, // TODO: add app icon
-    links: [
-      { type: "github", href: "https://github.com/makheyl" }, // TODO: point to the repo
-      { type: "demo", href: "#" }, // TODO: live demo / build URL
-    ],
-    builtWith: ["Unity 6"],
+    links: [], // TODO: add links once the repo is on GitHub
+    note: "Source not published yet",
+    builtWith: [],
   },
   {
     id: "cloudswyftcrm",
@@ -214,7 +249,7 @@ const EXPERIENCE = [
     roles: [
       {
         title: "Developer Intern", // TODO: confirm exact title
-        start: "2025-08", // TODO: confirm start date
+        start: "2026-07",
         end: null, // TODO: set end date when the internship wraps up
         description: "Contributing to CloudSwyftCRM, an internal CRM with SharePoint data, automated flows, and interactive email campaigns that collect CSAT ratings.",
         skills: ["SharePoint", "Power Automate", "Power Apps", "Adaptive Cards"],
@@ -233,7 +268,7 @@ const EXPERIENCE = [
         title: "Software Developer",
         start: "2025-07",
         end: null,
-        description: "Built a queueing system for the City Health Office with priority handling, laboratory waiting queues, and patient transfer workflows. Designed and maintained structured reporting features with clearer navigation and accessibility, backed by PHP and MySQL.",
+        description: "Built the out-patient (OPD) and laboratory queueing systems for the City Health Office, with priority handling, laboratory waiting queues, patient transfer workflows, and public kiosk displays. Designed and maintained structured reporting features, backed by PHP and MySQL.",
         skills: ["PHP", "MySQL", "Queueing workflows", "Reporting"],
         visibleSkills: 2,
       },
@@ -311,24 +346,22 @@ const EXPERIENCE = [
 
 /* ---------- Stack ---------- */
 const STACK = [
-  { category: "Frontend", items: ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS"] },
-  { category: "Backend & Data", items: ["PHP", "Node.js", "Python", "FastAPI", "MySQL", "Supabase", "PostgreSQL", "MongoDB", "MariaDB"] },
-  { category: "Cloud & Tools", items: ["AWS", "Azure", "Git", "GitHub", "VS Code", "Claude Code"] },
-  { category: "Game Development", items: ["Unity 6", "Three.js", "WebGL", "Blender", "Roblox Studio"] },
-  { category: "Design", items: ["Adobe Creative Cloud", "Photoshop", "Photo & video editing", "LightBurn"] },
+  { category: "Frontend", items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Vite", "Tailwind CSS"] },
+  { category: "Backend & Data", items: ["Node.js", "Express", "PHP", "Python", "FastAPI", "MongoDB", "Supabase", "PostgreSQL", "MySQL", "MariaDB"] },
+  { category: "AI", items: ["Anthropic API", "Claude", "ChatGPT", "Mistral 7B", "librosa"] },
+  { category: "Cloud & Tools", items: ["Vercel", "Google Cloud", "AWS", "Azure", "Git", "GitHub", "VS Code", "Claude Code", "Playwright"] },
+  { category: "Game Development", items: ["C#", "Unity 6", "Three.js", "Canvas 2D", "WebGL", "Blender", "Roblox Studio"] },
+  { category: "Design", items: ["Photoshop", "Adobe Creative Cloud", "Photo & video editing", "LightBurn"] },
   { category: "Power Platform", items: ["Power Apps", "Power Automate", "SharePoint", "Microsoft Lists", "Adaptive Cards"] },
 ];
 
 /* ---------- Gear ----------
-   image: optional product photo path (TODO for each)
-   slot:  true renders a dashed placeholder card
+   image: optional product photo path
 */
 const GEAR = [
-  { name: "MacBook Air M5", spec: "13\" · 16GB / 512GB", icon: "laptop", image: null /* TODO: product photo */ },
-  { name: "iPhone 16 Pro Max", spec: "Daily phone", icon: "smartphone", image: null /* TODO: product photo; add storage/colour to spec */ },
-  { name: "Mouse", spec: "Model to be added", icon: "mouse", image: null, slot: true /* TODO: add mouse */ },
-  { name: "Keyboard", spec: "Model to be added", icon: "keyboard", image: null, slot: true /* TODO: add keyboard */ },
-  { name: "Headphones", spec: "Model to be added", icon: "headphones", image: null, slot: true /* TODO: add headphones */ },
+  { name: "MacBook Air M5", spec: "Main laptop · 13\" · 16GB / 512GB", icon: "laptop", image: null /* TODO: product photo */ },
+  { name: "Acer Nitro V", spec: "Secondary laptop", icon: "laptop", image: null /* TODO: product photo; add specs */ },
+  { name: "iPhone 16 Pro Max", spec: "Daily phone", icon: "smartphone", image: null /* TODO: product photo */ },
 ];
 
 /* ---------- Certifications ----------
@@ -598,8 +631,9 @@ function renderHome() {
 function renderProjects() {
   const btn = (l) => {
     const isGh = l.type === "github";
+    const text = l.label || (isGh ? "source" : "live demo");
     return `<a class="action-btn${isGh ? "" : " is-ghost"}" href="${esc(l.href)}"${l.href.startsWith("http") ? ' target="_blank" rel="noopener noreferrer"' : ""}>
-      ${icon(isGh ? "code-xml" : "arrow-up-right")}<span>${isGh ? "source" : "live demo"}</span>
+      ${icon(isGh ? "code-xml" : "arrow-up-right")}<span>${esc(text)}</span>
     </a>`;
   };
 
@@ -696,7 +730,7 @@ function renderStack() {
 function renderGear() {
   document.getElementById("gear-grid").innerHTML = GEAR.map(
     (g) => `
-    <article class="gear-card reveal${g.slot ? " is-slot" : ""}">
+    <article class="gear-card reveal">
       <div class="gear-media">
         ${g.image ? `<img src="${esc(g.image)}" alt="${esc(g.name)}" loading="lazy" />` : icon(g.icon)}
       </div>

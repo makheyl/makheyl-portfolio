@@ -825,8 +825,6 @@ a.preview-row:hover .preview-row-title { text-decoration: underline; text-underl
   font-size: 14px;
   color: var(--muted);
 }
-.gear-card.is-slot { border-style: dashed; }
-.gear-card.is-slot .gear-name { color: var(--muted); }
 
 /* ==========================================================================
    Responsive
