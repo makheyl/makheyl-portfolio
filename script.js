@@ -12,7 +12,7 @@ const SITE = {
   status: "Developer intern at CloudSwyft",
   intro: [
     "I'm a web developer who loves building SaaS products and full-stack web apps. I'm currently a developer intern at CloudSwyft and a 4th-year BSIT student specializing in game development.",
-    "Right now I'm building Folio, a browser-based editor for interactive ebooks, alongside SDG-aligned capstone games at school. I love turning rough ideas into things people actually use.",
+    "Right now I'm building KolektaPH, a garbage truck tracker for Carmona, and Folio, an editor for interactive ebooks, alongside SDG-aligned capstone games at school. I love turning rough ideas into things people actually use.",
   ],
   social: [
     { label: "github", href: "https://github.com/makheyl" },
@@ -29,6 +29,7 @@ const SITE = {
 /* ---------- Navigation ---------- */
 const NAV = {
   withIcons: [
+    { id: "creative", label: "Creative", href: "creative.html", icon: "palette" },
     { id: "gear", label: "Gear", href: "gear.html", icon: "laptop" },
     { id: "certifications", label: "Certifications", href: "certifications.html", icon: "award" },
   ],
@@ -52,6 +53,10 @@ const PAGES = {
   stack: {
     title: "tech stack",
     intro: "The tools, frameworks, and platforms I reach for, across the web, SaaS, games, and cloud.",
+  },
+  creative: {
+    title: "creative",
+    intro: "Pubmats, graphic design, and 3D work. The visual side of what I make, from marketing layouts to Blender renders.",
   },
   gear: {
     title: "gear",
@@ -85,6 +90,18 @@ const STATS = [
 const GH = "https://github.com/makheyl/";
 
 const PROJECTS = [
+  {
+    id: "kolektaph",
+    name: "KolektaPH",
+    subtitle: "Garbage Truck Tracker",
+    description: "Real-time garbage truck tracking, barangay SMS alerts, and the Ask Kolek assistant for the 14 barangays of Carmona, Cavite. One codebase, three apps: resident, driver, and a City ENRO dashboard. Currently a UI prototype running on mock data.",
+    badge: "Mobile + web",
+    tags: ["Civic tech", "Prototype"],
+    icon: "truck",
+    image: null, // TODO: add app icon
+    links: [{ type: "github", href: GH + "kolektaph" }], // TODO: add live demo once deployed
+    builtWith: ["Expo", "React Native", "TypeScript", "MapLibre", "Zustand", "TanStack Query"],
+  },
   {
     id: "folio",
     name: "Folio",
@@ -346,7 +363,7 @@ const EXPERIENCE = [
 
 /* ---------- Stack ---------- */
 const STACK = [
-  { category: "Frontend", items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Vite", "Tailwind CSS"] },
+  { category: "Frontend", items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "React Native", "Expo", "Vite", "Tailwind CSS"] },
   { category: "Backend & Data", items: ["Node.js", "Express", "PHP", "Python", "FastAPI", "MongoDB", "Supabase", "PostgreSQL", "MySQL", "MariaDB"] },
   { category: "AI", items: ["Anthropic API", "Claude", "ChatGPT", "Mistral 7B", "librosa"] },
   { category: "Cloud & Tools", items: ["Vercel", "Google Cloud", "AWS", "Azure", "Git", "GitHub", "VS Code", "Claude Code", "Playwright"] },
@@ -364,6 +381,36 @@ const GEAR = [
   { name: "iPhone 16 Pro Max", spec: "Daily phone", icon: "smartphone", image: null /* TODO: product photo */ },
 ];
 
+/* ---------- Creative ----------
+   Shown on creative.html in this order, and on the home page (featured: true, first 4).
+   category: "pubmat" | "design" | "3d"
+   ratio:    "4:5" | "1:1" | "16:9" (takes two columns) | "9:16"
+   image:    path to the file, e.g. "assets/creative/my-pubmat.jpg".
+             While it is null the tile shows a generated placeholder.
+   alt:      optional description of the image for screen readers
+*/
+const CREATIVE_CATEGORIES = [
+  { id: "pubmat", label: "Pubmats", short: "Pubmats", singular: "Pubmat" },
+  { id: "design", label: "Graphic design", short: "Design", singular: "Graphic design" },
+  { id: "3d", label: "3D work", short: "3D", singular: "3D work" },
+];
+
+const CREATIVE = [
+  // TODO: every entry below is a placeholder. Set image, title, year, tools, description.
+  { id: "pubmat-01", category: "pubmat", title: "Pubmat sample 01", year: null, tools: ["Photoshop"], ratio: "4:5", image: null, description: "", featured: true },
+  { id: "3d-01", category: "3d", title: "3D render sample 01", year: null, tools: ["Blender"], ratio: "16:9", image: null, description: "", featured: true },
+  { id: "pubmat-02", category: "pubmat", title: "Pubmat sample 02", year: null, tools: ["Photoshop"], ratio: "4:5", image: null, description: "", featured: true },
+  { id: "design-01", category: "design", title: "Design sample 01", year: null, tools: ["Photoshop"], ratio: "1:1", image: null, description: "", featured: true },
+  { id: "design-02", category: "design", title: "Design sample 02", year: null, tools: ["Photoshop", "LightBurn"], ratio: "1:1", image: null, description: "" },
+  { id: "3d-02", category: "3d", title: "3D model sample 02", year: null, tools: ["Blender"], ratio: "1:1", image: null, description: "" },
+  { id: "3d-03", category: "3d", title: "3D model sample 03", year: null, tools: ["Blender"], ratio: "1:1", image: null, description: "" },
+  { id: "design-03", category: "design", title: "Design sample 03", year: null, tools: ["Adobe Creative Cloud"], ratio: "16:9", image: null, description: "" },
+  { id: "pubmat-03", category: "pubmat", title: "Pubmat sample 03", year: null, tools: ["Photoshop"], ratio: "4:5", image: null, description: "" },
+  { id: "pubmat-04", category: "pubmat", title: "Pubmat sample 04", year: null, tools: ["Photoshop"], ratio: "4:5", image: null, description: "" },
+  { id: "design-04", category: "design", title: "Design sample 04", year: null, tools: ["Photoshop"], ratio: "16:9", image: null, description: "" },
+  { id: "3d-04", category: "3d", title: "3D render sample 04", year: null, tools: ["Blender"], ratio: "16:9", image: null, description: "" },
+];
+
 /* ---------- Certifications ----------
    date: "YYYY-MM" or null; href: credential URL or null (link hidden when null)
 */
@@ -377,6 +424,11 @@ const CERTIFICATIONS = [
 /* ==========================================================================
    Helpers
    ========================================================================== */
+// Motion is skipped when the visitor prefers reduced motion (or with ?reduced-motion for testing)
+const REDUCED_MOTION =
+  matchMedia("(prefers-reduced-motion: reduce)").matches || new URLSearchParams(location.search).has("reduced-motion");
+if (REDUCED_MOTION) document.documentElement.dataset.motion = "reduce";
+
 const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
 const esc = (s) =>
@@ -443,17 +495,16 @@ function applyTheme(choice) {
    Falls back to a colour cross-fade where View Transitions aren't supported. */
 function setTheme(choice, origin) {
   const before = resolvedTheme();
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const willChange = () => {
     // resolve what the theme *would* be, without applying it
     if (choice === "light" || choice === "dark") return choice !== before;
     return (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") !== before;
   };
 
-  if (reduced || !willChange()) return applyTheme(choice);
+  if (REDUCED_MOTION || !willChange()) return applyTheme(choice);
 
+  const root = document.documentElement;
   if (!document.startViewTransition || !origin) {
-    const root = document.documentElement;
     root.classList.add("theme-fading");
     applyTheme(choice);
     setTimeout(() => root.classList.remove("theme-fading"), 450);
@@ -465,10 +516,11 @@ function setTheme(choice, origin) {
   const y = r.top + r.height / 2;
   const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
 
+  root.classList.add("theme-switching");
   const transition = document.startViewTransition(() => applyTheme(choice));
-  transition.finished.catch(() => {});
+  transition.finished.catch(() => {}).finally(() => root.classList.remove("theme-switching"));
   transition.ready.then(() => {
-    document.documentElement.animate(
+    root.animate(
       { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
       { duration: 650, easing: "cubic-bezier(.65, 0, .35, 1)", pseudoElement: "::view-transition-new(root)" }
     );
@@ -551,9 +603,48 @@ function renderPageHeader(page) {
   const el = document.querySelector('[data-render="page-header"]');
   const data = PAGES[page];
   if (!el || !data) return;
-  el.innerHTML = `<h1 class="page-title"><span class="prompt" aria-hidden="true">~/</span>${esc(data.title)}<span class="caret" aria-hidden="true"></span></h1>
-    <p class="page-intro">${esc(data.intro)}</p>`;
-  el.classList.add("reveal");
+  el.innerHTML = `<h1 class="page-title" aria-label="${esc(data.title)}"><span class="prompt" aria-hidden="true">~/</span><span class="title-text" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span></h1>
+    <p class="page-intro reveal">${esc(data.intro)}</p>`;
+  typeText(el.querySelector(".title-text"), data.title);
+}
+
+/* ==========================================================================
+   Motion helpers
+   ========================================================================== */
+// Types text into a node one character at a time
+function typeText(node, text, speed = 45) {
+  if (REDUCED_MOTION) {
+    node.textContent = text;
+    return;
+  }
+  let n = 0;
+  const timer = setInterval(() => {
+    node.textContent = text.slice(0, ++n);
+    if (n >= text.length) clearInterval(timer);
+  }, speed);
+}
+
+// Runs a DOM update inside a view transition. The promise settles once the
+// transition has finished, or was skipped (e.g. background tab) with the update still applied.
+function viewTransition(update) {
+  const t = document.startViewTransition(update);
+  t.ready.catch(() => {});
+  return t.finished.catch(() => {});
+}
+
+// Counts a number up from 0; node needs data-count and optional data-suffix
+function countUp(node, delay = 0) {
+  const to = Number(node.dataset.count);
+  const suffix = node.dataset.suffix || "";
+  const duration = 900;
+  setTimeout(() => {
+    const start = performance.now();
+    const timer = setInterval(() => {
+      const p = Math.min(1, (performance.now() - start) / duration);
+      node.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))) + suffix;
+      if (p === 1) clearInterval(timer);
+    }, 40);
+  }, delay);
 }
 
 /* ==========================================================================
@@ -562,14 +653,14 @@ function renderPageHeader(page) {
 function renderHome() {
   const hero = document.getElementById("hero");
   hero.innerHTML = `
-    <figure class="portrait reveal">
+    <figure class="portrait reveal" data-reveal="wipe">
       <img src="${SITE.portrait.src}" alt="${esc(SITE.portrait.alt)}" width="900" height="900" />
     </figure>
-    <div class="reveal">
-      <p class="status"><span class="status-dot" aria-hidden="true"></span>${esc(SITE.status)}</p>
-      <h1 class="hero-name">${esc(SITE.name)}</h1>
-      <div class="hero-intro">${SITE.intro.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
-      <div class="social">
+    <div>
+      <p class="status reveal"><span class="status-dot" aria-hidden="true"></span>${esc(SITE.status)}</p>
+      <h1 class="hero-name reveal">${esc(SITE.name)}</h1>
+      <div class="hero-intro">${SITE.intro.map((p) => `<p class="reveal">${esc(p)}</p>`).join("")}</div>
+      <div class="social reveal">
         ${SITE.social
           .map((s) => {
             const ext = s.href.startsWith("http") || s.href.endsWith(".pdf") ? ' target="_blank" rel="noopener noreferrer"' : "";
@@ -579,16 +670,33 @@ function renderHome() {
       </div>
     </div>`;
 
-  document.getElementById("stats").innerHTML = STATS.map(
-    (s) => `<a class="stat" href="${s.href}">
-      <div class="stat-value">${esc(s.value)}<sup aria-hidden="true">↗</sup></div>
+  const stats = document.getElementById("stats");
+  stats.innerHTML = STATS.map((s) => {
+    const m = /^(\d+)(\+?)$/.exec(s.value); // plain numbers count up
+    const value = m ? `<span data-count="${m[1]}" data-suffix="${m[2]}">${esc(s.value)}</span>` : esc(s.value);
+    return `<a class="stat reveal" href="${s.href}" aria-label="${esc(s.value)} ${esc(s.label)}">
+      <div class="stat-value">${value}<sup aria-hidden="true">↗</sup></div>
       <div class="stat-label">${esc(s.label)}</div>
-    </a>`
-  ).join("");
+    </a>`;
+  }).join("");
+  if (!REDUCED_MOTION) {
+    stats.querySelectorAll(".stat").forEach((stat) => {
+      const num = stat.querySelector("[data-count]");
+      if (!num) return;
+      num.textContent = `0${num.dataset.suffix}`;
+      stat.addEventListener("reveal", () => countUp(num, Number(stat.style.getPropertyValue("--i")) * 70), { once: true });
+    });
+  }
+
+  const divider = document.querySelector(".dot-divider");
+  if (divider) {
+    divider.classList.add("reveal");
+    divider.dataset.reveal = "draw";
+  }
 
   const section = (num, title, href, body) => `
-    <section class="preview reveal" aria-labelledby="pv-${title}">
-      <div class="preview-head">
+    <section class="preview" aria-labelledby="pv-${title}">
+      <div class="preview-head reveal">
         <h2 class="preview-title" id="pv-${title}">${num} — ${title}</h2>
         <a class="view-all" href="${href}">View all →</a>
       </div>
@@ -597,7 +705,7 @@ function renderHome() {
 
   const projectRows = PROJECTS.slice(0, 3)
     .map(
-      (p) => `<a class="preview-row" href="projects.html#${p.id}">
+      (p) => `<a class="preview-row reveal" href="projects.html#${p.id}">
         <div><div class="preview-row-title">${esc(p.name)} — ${esc(p.subtitle)}</div>
         <div class="preview-row-sub">${esc(p.description)}</div></div>
         <div class="preview-row-meta">${esc(p.badge.toLowerCase())}</div>
@@ -605,24 +713,35 @@ function renderHome() {
     )
     .join("");
 
+  const creativeStrip = `<div class="strip">${CREATIVE.filter((w) => w.featured)
+    .slice(0, 4)
+    .map((w) => {
+      const cat = CREATIVE_CATEGORIES.find((c) => c.id === w.category);
+      return `<a class="strip-item reveal" data-reveal="pop" href="creative.html#${w.id}" aria-label="${esc(w.title)}, ${esc(cat.singular)}">
+        <span class="work-media">${workMedia(w)}</span>
+        <span class="strip-cap">${esc(cat.singular)}</span>
+      </a>`;
+    })
+    .join("")}</div>`;
+
   const expRows = EXPERIENCE.slice(0, 3).map((x) => {
     const r = x.roles[0];
-    return `<a class="preview-row" href="experience.html#${x.id}">
+    return `<a class="preview-row reveal" href="experience.html#${x.id}">
       <div><div class="preview-row-title">${esc(x.org)}</div>
       <div class="preview-row-sub">${esc(r.title)}</div></div>
       <div class="preview-row-meta">${esc(r.dateText || `${fmtYm(r.start)} – ${r.end ? fmtYm(r.end) : "now"}`).toLowerCase()}</div>
     </a>`;
   }).join("");
 
-  const stackChips = `<div class="preview-chips tag-list">${STACK.slice(0, 3).flatMap((g) => g.items.slice(0, 3))
+  const stackChips = `<div class="preview-chips tag-list" data-stagger>${STACK.slice(0, 3).flatMap((g) => g.items.slice(0, 3))
     .map((t) => `<span class="tag">${esc(t)}</span>`)
     .join("")}</div>`;
 
   document.getElementById("previews").innerHTML =
     section("01", "projects", "projects.html", projectRows) +
-    section("02", "experience", "experience.html", expRows) +
-    section("03", "stack", "stack.html", stackChips);
-
+    section("02", "creative", "creative.html", creativeStrip) +
+    section("03", "experience", "experience.html", expRows) +
+    section("04", "stack", "stack.html", stackChips);
 }
 
 /* ==========================================================================
@@ -645,7 +764,7 @@ function renderProjects() {
           ${p.image ? `<img src="${esc(p.image)}" alt="" />` : icon(p.icon)}
         </div>
         <div>
-          <div class="badges">
+          <div class="badges" data-stagger>
             <span class="badge badge-filled"><span class="badge-dot" aria-hidden="true"></span>${esc(p.badge)}</span>
             ${p.tags.map((t) => `<span class="badge">${esc(t)}</span>`).join("")}
           </div>
@@ -658,7 +777,7 @@ function renderProjects() {
       </div>
       ${
         p.builtWith.length
-          ? `<div class="project-foot"><span class="label">Built with</span>${p.builtWith
+          ? `<div class="project-foot" data-stagger><span class="label">Built with</span>${p.builtWith
               .map((t) => `<span class="ext">${esc(t)}</span>`)
               .join("")}</div>`
           : ""
@@ -678,7 +797,7 @@ function renderExperience() {
       <h3 class="role-title">${esc(r.title)}</h3>
       <p class="role-dates">${esc(roleDates(r))}</p>
       <p class="role-desc">${esc(r.description)}</p>
-      <div class="tag-list" id="skills-${key}">
+      <div class="tag-list" id="skills-${key}" data-stagger>
         ${shown.map((s) => `<span class="tag">${esc(s)}</span>`).join("")}
         ${extra.map((s) => `<span class="tag is-extra" hidden>${esc(s)}</span>`).join("")}
         ${extra.length ? `<button type="button" class="tag tag-more" aria-expanded="false" aria-controls="skills-${key}">+${extra.length} skill${extra.length > 1 ? "s" : ""}</button>` : ""}
@@ -688,9 +807,9 @@ function renderExperience() {
 
   document.getElementById("timeline").innerHTML = EXPERIENCE.map(
     (x) => `
-    <article class="tl-item reveal" id="${x.id}">
+    <article class="tl-item" id="${x.id}" data-watch>
       <div class="tl-mark" aria-hidden="true">${esc(x.initials)}</div>
-      <div>
+      <div class="tl-body">
         <h2 class="tl-org">${esc(x.org)}</h2>
         ${x.type ? `<p class="tl-meta">${esc(x.type)}</p>` : ""}
         ${x.location ? `<p class="tl-loc">${esc(x.location)}</p>` : ""}
@@ -702,11 +821,17 @@ function renderExperience() {
   document.querySelectorAll(".tag-more").forEach((b) =>
     b.addEventListener("click", () => {
       const list = b.closest(".tag-list");
-      const first = list.querySelector(".is-extra");
-      list.querySelectorAll(".is-extra").forEach((t) => (t.hidden = false));
+      const extras = [...list.querySelectorAll(".is-extra")];
+      extras.forEach((t, n) => {
+        t.style.setProperty("--n", n); // pop in one after another
+        t.hidden = false;
+      });
       b.setAttribute("aria-expanded", "true");
       b.remove();
-      if (first) { first.tabIndex = -1; first.focus({ preventScroll: true }); }
+      if (extras[0]) {
+        extras[0].tabIndex = -1;
+        extras[0].focus({ preventScroll: true });
+      }
     })
   );
 }
@@ -717,9 +842,9 @@ function renderExperience() {
 function renderStack() {
   document.getElementById("stack-list").innerHTML = STACK.map(
     (g, i) => `
-    <section class="stack-group reveal" aria-labelledby="stack-${i}">
-      <h2 class="label" id="stack-${i}">${esc(g.category)}</h2>
-      <ul class="tag-list">${g.items.map((t) => `<li class="tag">${esc(t)}</li>`).join("")}</ul>
+    <section class="stack-group" aria-labelledby="stack-${i}">
+      <h2 class="label reveal" id="stack-${i}">${esc(g.category)}</h2>
+      <ul class="tag-list" data-stagger style="--d:${Math.min(i, 4) * 90}ms;--step:25ms">${g.items.map((t) => `<li class="tag">${esc(t)}</li>`).join("")}</ul>
     </section>`
   ).join("");
 }
@@ -746,9 +871,9 @@ function renderGear() {
 function renderCertifications() {
   document.getElementById("cert-list").innerHTML = CERTIFICATIONS.map(
     (c) => `
-    <article class="tl-item reveal">
+    <article class="tl-item" data-watch>
       <div class="tl-mark" aria-hidden="true">${esc(c.initials)}</div>
-      <div>
+      <div class="tl-body">
         <h2 class="tl-org">${esc(c.name)}</h2>
         <p class="tl-meta">${esc(c.issuer)}</p>
         ${c.date ? `<p class="role-dates">Issued ${fmtYm(c.date)}</p>` : ""}
@@ -759,21 +884,339 @@ function renderCertifications() {
 }
 
 /* ==========================================================================
+   Creative
+   ========================================================================== */
+const RATIOS = { "4:5": [4, 5], "1:1": [1, 1], "16:9": [16, 9], "9:16": [9, 16] };
+
+// Generated monochrome artwork shown until a work has a real image
+function placeholderArt(item) {
+  const [rw, rh] = RATIOS[item.ratio] || [1, 1];
+  const W = 400;
+  const H = Math.round((W * rh) / rw);
+  const S = Math.min(W, H);
+  const f = (v) => Math.round(v * 10) / 10;
+  const v = CREATIVE.filter((w) => w.category === item.category).indexOf(item) % 3; // 3 looks per category
+  let art = "";
+
+  if (item.category === "pubmat") {
+    // poster mock: shape, headline bars, body copy lines
+    const m = S * 0.12;
+    const bar = H * 0.055;
+    if (v === 0) {
+      art = `<circle cx="${f(W * 0.66)}" cy="${f(H * 0.32)}" r="${f(S * 0.24)}" fill="currentColor" fill-opacity=".14"/>
+        <rect x="${f(m)}" y="${f(H * 0.58)}" width="${f(W * 0.56)}" height="${f(bar)}" fill="currentColor" stroke="none"/>
+        <rect x="${f(m)}" y="${f(H * 0.58 + bar * 1.4)}" width="${f(W * 0.4)}" height="${f(bar)}" fill="currentColor" stroke="none"/>
+        <path d="M${f(m)} ${f(H * 0.8)}h${f(W * 0.34)}M${f(m)} ${f(H * 0.84)}h${f(W * 0.46)}M${f(m)} ${f(H * 0.88)}h${f(W * 0.24)}"/>`;
+    } else if (v === 1) {
+      art = `<path d="M0 ${H}L${W} ${f(H * 0.42)}V${H}Z" fill="currentColor" fill-opacity=".12"/>
+        <rect x="${f(m)}" y="${f(H * 0.17)}" width="${f(W * 0.62)}" height="${f(bar)}" fill="currentColor" stroke="none"/>
+        <rect x="${f(m)}" y="${f(H * 0.17 + bar * 1.4)}" width="${f(W * 0.46)}" height="${f(bar)}" fill="currentColor" stroke="none"/>
+        <rect x="${f(m)}" y="${f(H * 0.17 + bar * 2.8)}" width="${f(W * 0.3)}" height="${f(bar)}" fill="currentColor" stroke="none"/>
+        <circle cx="${f(W - m - S * 0.1)}" cy="${f(H - m - S * 0.1)}" r="${f(S * 0.1)}"/>
+        <path d="M${f(m)} ${f(H * 0.56)}h${f(W * 0.3)}M${f(m)} ${f(H * 0.6)}h${f(W * 0.22)}"/>`;
+    } else {
+      art = `<rect x="${f(m)}" y="${f(H * 0.16)}" width="${f(W - m * 2)}" height="${f(H * 0.42)}" fill="currentColor" fill-opacity=".1"/>
+        <path d="M${f(m)} ${f(H * 0.58)}L${f(W * 0.5)} ${f(H * 0.28)}L${f(W - m)} ${f(H * 0.58)}"/>
+        <rect x="${f(m)}" y="${f(H * 0.68)}" width="${f(W * 0.5)}" height="${f(bar)}" fill="currentColor" stroke="none"/>
+        <path d="M${f(m)} ${f(H * 0.8)}h${f(W - m * 2)}M${f(m)} ${f(H * 0.84)}h${f(W * 0.5)}"/>
+        <rect x="${f(W - m - S * 0.18)}" y="${f(H * 0.675)}" width="${f(S * 0.18)}" height="${f(S * 0.07)}" rx="${f(S * 0.035)}"/>`;
+    }
+  } else if (item.category === "design") {
+    // vector artboard: guides, construction circles, a path with anchor points
+    const cx = W / 2;
+    const cy = H / 2;
+    const r = S * 0.3;
+    const a = 7;
+    const anchor = (x, y) => `<rect x="${f(x - a / 2)}" y="${f(y - a / 2)}" width="${a}" height="${a}" fill="currentColor" stroke="none"/>`;
+    const guides = `<path d="M${cx} 0V${H}M0 ${cy}H${W}" stroke-opacity=".3" stroke-dasharray="4 6"/>`;
+    if (v === 0) {
+      art = `${guides}<circle cx="${cx}" cy="${cy}" r="${f(r)}"/><circle cx="${cx}" cy="${cy}" r="${f(r * 0.62)}" fill="currentColor" fill-opacity=".12"/>
+        <path d="M${f(cx - r)} ${cy}C${f(cx - r)} ${f(cy - r * 1.2)} ${f(cx + r)} ${f(cy + r * 1.2)} ${f(cx + r)} ${cy}"/>
+        ${anchor(cx - r, cy)}${anchor(cx + r, cy)}${anchor(cx, cy)}`;
+    } else if (v === 1) {
+      const p = [0, 1, 2, 3, 4, 5].map((k) => `${f(cx + r * Math.cos((Math.PI / 3) * k - Math.PI / 2))},${f(cy + r * Math.sin((Math.PI / 3) * k - Math.PI / 2))}`);
+      art = `${guides}<polygon points="${p.join(" ")}" fill="currentColor" fill-opacity=".1"/>
+        <polygon points="${p[0]} ${p[2]} ${p[4]}"/><circle cx="${cx}" cy="${cy}" r="${f(r * 0.28)}" fill="currentColor" stroke="none"/>
+        ${p.map((pt) => anchor(...pt.split(",").map(Number))).join("")}`;
+    } else {
+      art = `${guides}<rect x="${f(cx - r)}" y="${f(cy - r)}" width="${f(r * 2)}" height="${f(r * 2)}" rx="${f(r * 0.4)}"/>
+        <path d="M${f(cx - r * 0.5)} ${f(cy + r * 0.5)}V${f(cy - r * 0.5)}L${cx} ${f(cy + r * 0.1)}L${f(cx + r * 0.5)} ${f(cy - r * 0.5)}V${f(cy + r * 0.5)}" stroke-width="3"/>
+        ${anchor(cx - r, cy - r)}${anchor(cx + r, cy - r)}${anchor(cx - r, cy + r)}${anchor(cx + r, cy + r)}`;
+    }
+  } else {
+    // 3D viewport: floor grid plus a wireframe solid
+    const cx = W / 2;
+    const cy = H * 0.52;
+    const s = S * 0.26;
+    const k = 0.866;
+    const cube = (x, y, e) => `<polygon points="${f(x)},${f(y - e)} ${f(x + e * k)},${f(y - e / 2)} ${f(x)},${f(y)} ${f(x - e * k)},${f(y - e / 2)}" fill="currentColor" fill-opacity=".05"/>
+      <polygon points="${f(x - e * k)},${f(y - e / 2)} ${f(x)},${f(y)} ${f(x)},${f(y + e)} ${f(x - e * k)},${f(y + e / 2)}" fill="currentColor" fill-opacity=".14"/>
+      <polygon points="${f(x + e * k)},${f(y - e / 2)} ${f(x)},${f(y)} ${f(x)},${f(y + e)} ${f(x + e * k)},${f(y + e / 2)}" fill="currentColor" fill-opacity=".26"/>`;
+    // isometric floor: point (u, v) on the ground plane, centred under the solid
+    const e = s * 0.55;
+    const ground = (u, w) => `${f(cx + (u - w) * k * e)} ${f(cy + s + (u + w) * 0.5 * e)}`;
+    const lines = [-2, -1, 0, 1, 2].map((g) => `M${ground(g, -2)}L${ground(g, 2)}M${ground(-2, g)}L${ground(2, g)}`).join("");
+    const grid = `<path d="${lines}" stroke-opacity=".3" stroke-width="1"/>`;
+    if (v === 0) {
+      art = `${grid}${cube(cx, cy, s)}`;
+    } else if (v === 1) {
+      art = `${grid}<circle cx="${cx}" cy="${f(cy)}" r="${f(s)}" fill="currentColor" fill-opacity=".08"/>
+        <ellipse cx="${cx}" cy="${f(cy)}" rx="${f(s)}" ry="${f(s * 0.34)}"/><ellipse cx="${cx}" cy="${f(cy)}" rx="${f(s * 0.34)}" ry="${f(s)}"/>
+        <ellipse cx="${cx}" cy="${f(cy - s * 0.5)}" rx="${f(s * 0.866)}" ry="${f(s * 0.29)}" stroke-opacity=".5"/><ellipse cx="${cx}" cy="${f(cy + s * 0.5)}" rx="${f(s * 0.866)}" ry="${f(s * 0.29)}" stroke-opacity=".5"/>
+        <ellipse cx="${cx}" cy="${f(cy)}" rx="${f(s * 0.72)}" ry="${f(s)}" stroke-opacity=".5"/>`;
+    } else {
+      art = `${grid}${cube(cx - s * 0.6, cy + s * 0.38, s * 0.6)}${cube(cx + s * 0.45, cy + s * 0.15, s * 0.82)}${cube(cx + s * 0.45, cy - s * 0.67, s * 0.42)}`;
+    }
+  }
+
+  return `<svg class="ph-art" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${art}</svg>`;
+}
+
+// The picture for a work: its image, or placeholder art while image is null
+function workMedia(item, alt = "") {
+  return item.image
+    ? `<img src="${esc(item.image)}" alt="${esc(alt)}" loading="lazy" />`
+    : `<span class="ph">${placeholderArt(item)}<span class="ph-tag">placeholder</span></span>`;
+}
+
+function renderCreative() {
+  const root = document.getElementById("creative-root");
+  const html = document.documentElement;
+  const cats = Object.fromEntries(CREATIVE_CATEGORIES.map((c) => [c.id, c]));
+  const pad = (n) => String(n).padStart(2, "0");
+  const filters = [{ id: "all", label: "All", short: "All" }, ...CREATIVE_CATEGORIES];
+  const total = (id) => (id === "all" ? CREATIVE.length : CREATIVE.filter((w) => w.category === id).length);
+  const meta = (w) => [cats[w.category].singular, w.year].filter(Boolean).join(" · ");
+
+  const reel = CREATIVE.map((w) => `<span class="reel-item" style="--ar:${RATIOS[w.ratio][0] / RATIOS[w.ratio][1]}">${workMedia(w)}</span>`).join("");
+
+  root.innerHTML = `
+    <div class="reel reveal" aria-hidden="true">
+      <div class="reel-track"><div class="reel-list">${reel}</div><div class="reel-list">${reel}</div></div>
+    </div>
+
+    <div class="filter-row reveal">
+      <div class="filter" role="group" aria-label="Filter work by type">
+        <span class="filter-thumb" aria-hidden="true"></span>
+        ${filters
+          .map(
+            (c) => `<button type="button" data-filter="${c.id}" aria-pressed="${c.id === "all"}">
+              <span class="filter-full">${esc(c.label)}</span><span class="filter-short">${esc(c.short)}</span><span class="filter-count">${total(c.id)}</span>
+            </button>`
+          )
+          .join("")}
+      </div>
+      <p class="filter-status" aria-live="polite"></p>
+    </div>
+
+    <div class="works-wrap">
+      <ul class="works" id="works">
+        ${CREATIVE.map(
+          (w, n) => `<li class="work reveal" data-reveal="pop" id="${w.id}" data-cat="${w.category}" data-ratio="${w.ratio}" style="--vt:w-${w.id}">
+            <button type="button" class="work-btn" aria-haspopup="dialog" aria-label="View ${esc(w.title)}, ${esc(cats[w.category].singular)}">
+              <span class="work-media">${workMedia(w)}</span>
+              <span class="work-num" aria-hidden="true">${pad(n + 1)}</span>
+              <span class="work-cap"><span class="work-title">${esc(w.title)}</span><span class="work-meta">${esc(meta(w))}</span></span>
+            </button>
+          </li>`
+        ).join("")}
+      </ul>
+    </div>
+
+    <dialog class="lightbox" id="lightbox" aria-labelledby="lb-title">
+      <div class="lb-panel">
+        <div class="lb-stage"><div class="lb-media"></div></div>
+        <div class="lb-info">
+          <p class="lb-count" aria-live="polite"></p>
+          <h2 class="lb-title" id="lb-title"></h2>
+          <p class="lb-cat label"></p>
+          <p class="lb-desc"></p>
+          <ul class="tag-list lb-tools"></ul>
+          <div class="lb-nav">
+            <button type="button" class="lb-btn" data-dir="-1" aria-label="Previous work">${icon("arrow-left")}</button>
+            <button type="button" class="lb-btn" data-dir="1" aria-label="Next work">${icon("arrow-right")}</button>
+          </div>
+        </div>
+        <button type="button" class="lb-close" aria-label="Close">${icon("x")}</button>
+      </div>
+    </dialog>`;
+
+  const filter = root.querySelector(".filter");
+  const buttons = [...filter.querySelectorAll("button")];
+  const status = root.querySelector(".filter-status");
+  const grid = root.querySelector(".works");
+  const tiles = [...grid.children];
+  const dialog = root.querySelector(".lightbox");
+  const panel = dialog.querySelector(".lb-panel");
+  const media = dialog.querySelector(".lb-media");
+  const canMorph = !REDUCED_MOTION && !!document.startViewTransition;
+
+  /* ----- filter ----- */
+  const moveThumb = () => {
+    const active = filter.querySelector('[aria-pressed="true"]');
+    filter.style.setProperty("--x", `${active.offsetLeft}px`);
+    filter.style.setProperty("--w", `${active.offsetWidth}px`);
+  };
+
+  const applyFilter = (id, animate = true) => {
+    const update = () => {
+      tiles.forEach((li) => (li.hidden = id !== "all" && li.dataset.cat !== id));
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.filter === id)));
+      moveThumb();
+      const n = total(id);
+      status.textContent = `${pad(n)} ${n === 1 ? "work" : "works"}`;
+    };
+    if (!animate || REDUCED_MOTION) return update();
+
+    // entry animations are done once filtering starts; tiles now move as a group
+    tiles.forEach((li) => li.classList.remove("reveal", "is-visible"));
+    if (!document.startViewTransition) {
+      update();
+      tiles.filter((li) => !li.hidden).forEach((li, k) => {
+        li.style.setProperty("--k", Math.min(k, 8));
+        li.classList.remove("flash");
+        void li.offsetWidth; // restart the animation
+        li.classList.add("flash");
+      });
+      return;
+    }
+    html.classList.add("vt-works");
+    viewTransition(update).finally(() => html.classList.remove("vt-works"));
+  };
+
+  buttons.forEach((b) => b.addEventListener("click", () => b.getAttribute("aria-pressed") !== "true" && applyFilter(b.dataset.filter)));
+  applyFilter("all", false);
+  window.addEventListener("resize", moveThumb);
+  document.fonts?.ready.then(moveThumb);
+
+  /* ----- pointer tilt ----- */
+  if (!REDUCED_MOTION && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    grid.addEventListener("pointermove", (e) => {
+      const btn = e.target.closest(".work-btn");
+      if (!btn) return;
+      const r = btn.getBoundingClientRect();
+      btn.style.setProperty("--ry", `${(((e.clientX - r.left) / r.width - 0.5) * 9).toFixed(2)}deg`);
+      btn.style.setProperty("--rx", `${(((e.clientY - r.top) / r.height - 0.5) * -9).toFixed(2)}deg`);
+    });
+    grid.addEventListener("pointerout", (e) => {
+      const btn = e.target.closest(".work-btn");
+      if (!btn || btn.contains(e.relatedTarget)) return;
+      btn.style.removeProperty("--rx");
+      btn.style.removeProperty("--ry");
+    });
+  }
+
+  /* ----- lightbox ----- */
+  let current = null;
+  const shown = () => tiles.filter((li) => !li.hidden).map((li) => CREATIVE.find((w) => w.id === li.id));
+  const tileMedia = (w) => document.getElementById(w.id)?.querySelector(".work-media");
+
+  const fill = (w) => {
+    current = w;
+    const list = shown();
+    const [rw, rh] = RATIOS[w.ratio] || [1, 1];
+    media.style.setProperty("--ar", rw / rh);
+    media.innerHTML = workMedia(w, w.alt || w.title);
+    dialog.querySelector(".lb-count").textContent = `${pad(list.indexOf(w) + 1)} / ${pad(list.length)}`;
+    dialog.querySelector(".lb-title").textContent = w.title;
+    dialog.querySelector(".lb-cat").textContent = meta(w);
+    dialog.querySelector(".lb-desc").textContent =
+      w.description || (w.image ? "" : "Placeholder piece. The real work, with a short note about it, goes here.");
+    dialog.querySelector(".lb-tools").innerHTML = w.tools.map((t) => `<li class="tag">${esc(t)}</li>`).join("");
+    dialog.querySelectorAll(".lb-btn").forEach((b) => (b.disabled = list.length < 2));
+  };
+
+  // Runs `update` inside a view transition that morphs `from` into `to`
+  const morph = (from, to, update) => {
+    if (!canMorph || !from || !to) return update();
+    from.style.viewTransitionName = "work-hero";
+    viewTransition(() => {
+      from.style.viewTransitionName = "";
+      update();
+      to.style.viewTransitionName = "work-hero";
+    }).finally(() => (to.style.viewTransitionName = ""));
+  };
+
+  const open = (w, animate = true) => {
+    const show = () => {
+      fill(w);
+      dialog.showModal();
+      history.replaceState(null, "", `#${w.id}`);
+    };
+    const from = animate && canMorph ? tileMedia(w) : null;
+    dialog.classList.toggle("is-plain", !from); // no morph available: the panel pops in instead
+    from ? morph(from, media, show) : show();
+  };
+
+  const close = () => {
+    if (!dialog.open) return;
+    const w = current;
+    const done = () => {
+      dialog.close();
+      history.replaceState(null, "", location.pathname + location.search);
+    };
+    morph(media, w && tileMedia(w), done);
+  };
+
+  const step = (dir) => {
+    const list = shown();
+    if (list.length < 2) return;
+    const next = list[(list.indexOf(current) + dir + list.length) % list.length];
+    panel.dataset.dir = dir;
+    panel.classList.remove("is-swapping");
+    void panel.offsetWidth; // restart the animation
+    fill(next);
+    panel.classList.add("is-swapping");
+    history.replaceState(null, "", `#${next.id}`);
+  };
+
+  grid.addEventListener("click", (e) => {
+    const li = e.target.closest(".work");
+    if (li) open(CREATIVE.find((w) => w.id === li.id));
+  });
+  dialog.querySelector(".lb-close").addEventListener("click", close);
+  dialog.querySelectorAll(".lb-btn").forEach((b) => b.addEventListener("click", () => step(Number(b.dataset.dir))));
+  dialog.addEventListener("click", (e) => e.target === dialog && close()); // click outside the panel
+  dialog.addEventListener("cancel", (e) => {
+    e.preventDefault(); // Esc: close with the same animation
+    close();
+  });
+  dialog.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
+  });
+
+  // creative.html#<id> opens that work
+  const linked = CREATIVE.find((w) => w.id === decodeURIComponent(location.hash.slice(1)));
+  if (linked) open(linked, false);
+}
+
+/* ==========================================================================
    Scroll reveal
+   .reveal        the element animates in (variant set by data-reveal)
+   [data-stagger] its direct children animate in one after another
+   [data-watch]   only gets .is-visible; its CSS decides what moves
    ========================================================================== */
 function initReveal() {
-  const els = document.querySelectorAll(".reveal");
-  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  document.querySelectorAll("[data-stagger]").forEach((group) =>
+    [...group.children].forEach((child, n) => child.style.setProperty("--n", n))
+  );
+
+  const els = document.querySelectorAll(".reveal, [data-stagger], [data-watch]");
+  if (REDUCED_MOTION || !("IntersectionObserver" in window)) {
     els.forEach((el) => el.classList.add("is-visible"));
     return;
   }
   const io = new IntersectionObserver(
     (entries) => {
+      let i = 0; // elements that appear together are staggered
       entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add("is-visible");
-          io.unobserve(e.target);
-        }
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        if (!el.hasAttribute("data-stagger")) el.style.setProperty("--i", Math.min(i++, 8));
+        el.classList.add("is-visible");
+        el.dispatchEvent(new CustomEvent("reveal"));
+        io.unobserve(el);
       });
     },
     { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
@@ -792,6 +1235,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ({
     home: renderHome,
     projects: renderProjects,
+    creative: renderCreative,
     experience: renderExperience,
     stack: renderStack,
     gear: renderGear,
