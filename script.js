@@ -22,7 +22,7 @@ const SITE = {
   ],
   portrait: {
     src: "assets/portrait-gray.jpg",
-    alt: "Black-and-white portrait of Makheyl smiling, wearing glasses",
+    alt: "Black-and-white close-up portrait of Makheyl wearing round glasses",
   },
 };
 
@@ -384,10 +384,17 @@ const GEAR = [
 /* ---------- Creative ----------
    Shown on creative.html in this order, and on the home page (featured: true, first 4).
    category: "pubmat" | "design" | "3d"
-   ratio:    "4:5" | "1:1" | "16:9" (takes two columns) | "9:16"
-   image:    path to the file, e.g. "assets/creative/my-pubmat.jpg".
-             While it is null the tile shows a generated placeholder.
-   alt:      optional description of the image for screen readers
+   ratio:    the picture's shape as "width:height", e.g. "1:1", "16:9", "4:3", "4:5"
+   image:    the full-size picture, shown when a work is opened
+   thumb:    optional smaller copy for the grid (falls back to image)
+   video:    optional video file; image is then used as its poster
+   alt:      what the picture shows, for screen readers
+   tools:    shown as tags when a work is opened (leave [] to show none)
+
+   Files live in assets/creative/web/. work("name.jpg") fills in image and thumb for a
+   file that has a copy in web/ and in web/thumbs/. For a new piece without a thumbnail,
+   write image: "assets/creative/web/name.jpg" instead. While image is null the tile
+   shows generated placeholder art.
 */
 const CREATIVE_CATEGORIES = [
   { id: "pubmat", label: "Pubmats", short: "Pubmats", singular: "Pubmat" },
@@ -395,20 +402,125 @@ const CREATIVE_CATEGORIES = [
   { id: "3d", label: "3D work", short: "3D", singular: "3D work" },
 ];
 
+const CW = "assets/creative/web/";
+const work = (file) => ({ image: CW + file, thumb: CW + "thumbs/" + file });
+
 const CREATIVE = [
-  // TODO: every entry below is a placeholder. Set image, title, year, tools, description.
-  { id: "pubmat-01", category: "pubmat", title: "Pubmat sample 01", year: null, tools: ["Photoshop"], ratio: "4:5", image: null, description: "", featured: true },
-  { id: "3d-01", category: "3d", title: "3D render sample 01", year: null, tools: ["Blender"], ratio: "16:9", image: null, description: "", featured: true },
-  { id: "pubmat-02", category: "pubmat", title: "Pubmat sample 02", year: null, tools: ["Photoshop"], ratio: "4:5", image: null, description: "", featured: true },
-  { id: "design-01", category: "design", title: "Design sample 01", year: null, tools: ["Photoshop"], ratio: "1:1", image: null, description: "", featured: true },
-  { id: "design-02", category: "design", title: "Design sample 02", year: null, tools: ["Photoshop", "LightBurn"], ratio: "1:1", image: null, description: "" },
-  { id: "3d-02", category: "3d", title: "3D model sample 02", year: null, tools: ["Blender"], ratio: "1:1", image: null, description: "" },
-  { id: "3d-03", category: "3d", title: "3D model sample 03", year: null, tools: ["Blender"], ratio: "1:1", image: null, description: "" },
-  { id: "design-03", category: "design", title: "Design sample 03", year: null, tools: ["Adobe Creative Cloud"], ratio: "16:9", image: null, description: "" },
-  { id: "pubmat-03", category: "pubmat", title: "Pubmat sample 03", year: null, tools: ["Photoshop"], ratio: "4:5", image: null, description: "" },
-  { id: "pubmat-04", category: "pubmat", title: "Pubmat sample 04", year: null, tools: ["Photoshop"], ratio: "4:5", image: null, description: "" },
-  { id: "design-04", category: "design", title: "Design sample 04", year: null, tools: ["Photoshop"], ratio: "16:9", image: null, description: "" },
-  { id: "3d-04", category: "3d", title: "3D render sample 04", year: null, tools: ["Blender"], ratio: "16:9", image: null, description: "" },
+  {
+    id: "chaintalk", category: "pubmat", title: "ChainTalk 2026", year: 2026, ratio: "1:1", ...work("pubmat-chaintalk.jpg"), featured: true,
+    description: "Key visual for ChainTalk 2026, a blockchain education and digital innovation event.",
+    alt: "Poster reading Chain Talk 2026 in purple and pink halftone lettering over a pastel galaxy with floating glass cubes.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "old-house", category: "3d", title: "Old House — Interior", year: null, ratio: "16:9", ...work("3d-old-house.jpg"), featured: true,
+    description: "An old wooden house interior lit by lanterns and a candle, modelled and rendered in Blender.",
+    alt: "3D render of a warm, lamp-lit wooden room with lattice windows, a round table with books and a lantern, and clay jars.",
+    tools: ["Blender"],
+  },
+  {
+    id: "council-polo-2025", category: "design", title: "CSSC Council Polo 2025–26", year: null, ratio: "1:1", ...work("design-council-shirt-2025.jpg"), featured: true,
+    description: "Polo shirt for the Computer Studies Student Council, A.Y. 2025–2026.",
+    alt: "Polo shirt mockup in black and grey with magenta shards, a large CCS Computer Studies wordmark and the CSSC logo.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "gamex", category: "pubmat", title: "GameX 2026", year: 2026, ratio: "1:1", ...work("pubmat-gamex.jpg"), featured: true,
+    description: "Event poster for GameX 2026, powered by the UPHSL Game Developers' Club.",
+    alt: "Poster reading GameX 2026, Game On, Chain On, over ancient temple ruins framed by heavy chains.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "bus-stop", category: "3d", title: "Bus Stop at Night", year: null, ratio: "16:9", ...work("3d-bus-stop.jpg"),
+    description: "A low-poly diorama of a figure waiting at a bus stop under a single street lamp.",
+    alt: "Low-poly 3D scene of a person sitting on a bench at a bus stop at night, lit by a street lamp and a red sign.",
+    tools: ["Blender"],
+  },
+  {
+    id: "university-week-logo", category: "design", title: "University Week 2025 Logo", year: 2025, ratio: "1:1", ...work("design-university-week-logo.jpg"),
+    description: "Entry for the UPHSL University Week 2025 logo-making competition.",
+    alt: "Logo with a large golden 50 behind the university seal, a trophy, splashing water, and the words UPHSL University Week 2025.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "earthquake-drill", category: "pubmat", title: "Earthquake Drill", year: null, ratio: "1:1", ...work("pubmat-earthquake-drill.jpg"),
+    description: "A brutalist-style pubmat for an earthquake drill, made for the Computer Studies Student Council.",
+    alt: "Poster with bold red Earthquake Drill lettering over a photo of students walking with hands over their heads.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "cake", category: "3d", title: "Caramel Cake", year: 2025, ratio: "16:9", ...work("3d-cake.jpg"),
+    description: "Two slices of layered cake with a textured sponge and dripping caramel glaze.",
+    alt: "3D render of two slices of layered sponge cake with caramel glaze on a dark plate.",
+    tools: ["Blender"],
+  },
+  {
+    id: "dept-polo-circuit", category: "design", title: "CCS Department Polo — Circuit", year: null, ratio: "1:1", ...work("design-dept-shirt-circuit.jpg"),
+    description: "Department shirt for the College of Computer Studies, A.Y. 2026–2027.",
+    alt: "Black polo shirt mockup with magenta stripes, faint circuit lines, and a vertical CCS Computer Studies wordmark.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "ccs-days", category: "pubmat", title: "CCS Days Reschedule", year: null, ratio: "1:1", ...work("pubmat-ccs-days.jpg"),
+    description: "Announcement pubmat for the rescheduling of CCS Days.",
+    alt: "Purple poster with a construction crane and the words CCS Days Reschedule, Stay Informed.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "old-house-lantern", category: "3d", title: "Old House — Lantern", year: null, ratio: "16:9", ...work("3d-old-house-lantern.jpg"),
+    description: "A close-up from the old house scene: a lit lantern, stacked books, and a bottle on the table.",
+    alt: "3D render close-up of a glowing lantern beside stacked wooden books and a red bottle on a round table.",
+    tools: ["Blender"],
+  },
+  {
+    id: "committee-jersey", category: "design", title: "Creatives Committee Jersey", year: null, ratio: "4:3", ...work("design-committee-shirt.jpg"),
+    description: "Front and back jersey design for the CSSC Creatives Committee.",
+    alt: "Front and back of a white jersey with black and magenta panels, the CSSC logo, and Creatives Committee on the back.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "committee-application", category: "pubmat", title: "Committee Application", year: 2026, ratio: "1:1", ...work("pubmat-committee-application.jpg"),
+    description: "A clean, light pubmat calling for applications to the CSSC committees.",
+    alt: "White poster with soft paper waves and the words CSSC Committee Application in pink and purple.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "old-house-timelapse", category: "3d", title: "Old House — Timelapse", year: null, ratio: "16:9", ...work("3d-old-house-timelapse.jpg"),
+    video: CW + "3d-old-house-timelapse.mp4",
+    description: "A one-minute timelapse of modelling the old house scene in Blender.",
+    alt: "Blender viewport showing the untextured model of the old house room.",
+    tools: ["Blender"],
+  },
+  {
+    id: "council-polo-2026", category: "design", title: "CSSC Council Polo 2026–27", year: null, ratio: "1:1", ...work("design-council-shirt-2026.jpg"),
+    description: "Polo shirt for the Computer Studies Student Council, A.Y. 2026–2027.",
+    alt: "Polo shirt mockup split into a pink panel and a black panel, with the CSSC logo and the university seal.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "cssc-wizard", category: "pubmat", title: "CSSC Wizard Logo", year: null, ratio: "1:1", ...work("pubmat-cssc-wizard.jpg"),
+    description: "A Harry Potter themed take on the Computer Studies Student Council logo.",
+    alt: "The CSSC logo wearing round glasses and a wizard's hat, with a broomstick and wand crossed behind it, on purple.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "cake-nodes", category: "3d", title: "Caramel Cake — Shader Nodes", year: 2025, ratio: "16:9", ...work("3d-cake-editor.jpg"),
+    description: "The Blender node setup behind the cake's sponge texture, next to the finished render.",
+    alt: "Blender screenshot with a shader node graph on the left and the rendered cake slices on the right.",
+    tools: ["Blender"],
+  },
+  {
+    id: "dept-polo-wave", category: "design", title: "CCS Department Polo — Wave", year: null, ratio: "1:1", ...work("design-dept-shirt-wave.jpg"),
+    description: "An alternate department shirt in pink for the College of Computer Studies.",
+    alt: "Pink polo shirt mockup with dark flowing curves and a large vertical CCS wordmark.",
+    tools: [], // TODO: add the tools you used
+  },
+  {
+    id: "campaign", category: "pubmat", title: "Campaign Poster", year: null, ratio: "1:1", ...work("pubmat-campaign.jpg"),
+    description: "My own campaign pubmat for PRO-External of the Computer Studies Student Council.",
+    alt: "Campaign poster with Makheyl's portrait, the name Dela Cruz, PRO-External, and lists of awards and leadership roles.",
+    tools: [], // TODO: add the tools you used
+  },
 ];
 
 /* ---------- Certifications ----------
@@ -886,11 +998,16 @@ function renderCertifications() {
 /* ==========================================================================
    Creative
    ========================================================================== */
-const RATIOS = { "4:5": [4, 5], "1:1": [1, 1], "16:9": [16, 9], "9:16": [9, 16] };
+// "16:9" -> [16, 9]
+const ratioParts = (item) => {
+  const [w, h] = String(item.ratio || "1:1").split(":").map(Number);
+  return w > 0 && h > 0 ? [w, h] : [1, 1];
+};
+const ratioOf = (item) => ratioParts(item)[0] / ratioParts(item)[1];
 
 // Generated monochrome artwork shown until a work has a real image
 function placeholderArt(item) {
-  const [rw, rh] = RATIOS[item.ratio] || [1, 1];
+  const [rw, rh] = ratioParts(item);
   const W = 400;
   const H = Math.round((W * rh) / rw);
   const S = Math.min(W, H);
@@ -972,11 +1089,15 @@ function placeholderArt(item) {
   return `<svg class="ph-art" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${art}</svg>`;
 }
 
-// The picture for a work: its image, or placeholder art while image is null
-function workMedia(item, alt = "") {
-  return item.image
-    ? `<img src="${esc(item.image)}" alt="${esc(alt)}" loading="lazy" />`
-    : `<span class="ph">${placeholderArt(item)}<span class="ph-tag">placeholder</span></span>`;
+// The picture for a work. In the grid: its thumbnail. Opened (full): the full image,
+// or the video player. Without an image: generated placeholder art.
+function workMedia(item, { full = false, alt = "" } = {}) {
+  if (!item.image) return `<span class="ph">${placeholderArt(item)}<span class="ph-tag">placeholder</span></span>`;
+  if (full && item.video) {
+    return `<video src="${esc(item.video)}" poster="${esc(item.image)}" controls playsinline preload="metadata" aria-label="${esc(alt)}"></video>`;
+  }
+  const src = full ? item.image : item.thumb || item.image;
+  return `<img src="${esc(src)}" alt="${esc(alt)}" ${full ? "" : 'loading="lazy" '}/>`;
 }
 
 function renderCreative() {
@@ -988,7 +1109,7 @@ function renderCreative() {
   const total = (id) => (id === "all" ? CREATIVE.length : CREATIVE.filter((w) => w.category === id).length);
   const meta = (w) => [cats[w.category].singular, w.year].filter(Boolean).join(" · ");
 
-  const reel = CREATIVE.map((w) => `<span class="reel-item" style="--ar:${RATIOS[w.ratio][0] / RATIOS[w.ratio][1]}">${workMedia(w)}</span>`).join("");
+  const reel = CREATIVE.map((w) => `<span class="reel-item" style="--ar:${ratioOf(w)}">${workMedia(w)}</span>`).join("");
 
   root.innerHTML = `
     <div class="reel reveal" aria-hidden="true">
@@ -1012,9 +1133,10 @@ function renderCreative() {
     <div class="works-wrap">
       <ul class="works" id="works">
         ${CREATIVE.map(
-          (w, n) => `<li class="work reveal" data-reveal="pop" id="${w.id}" data-cat="${w.category}" data-ratio="${w.ratio}" style="--vt:w-${w.id}">
-            <button type="button" class="work-btn" aria-haspopup="dialog" aria-label="View ${esc(w.title)}, ${esc(cats[w.category].singular)}">
+          (w, n) => `<li class="work reveal" data-reveal="pop" id="${w.id}" data-cat="${w.category}" style="--ar:${ratioOf(w)};--vt:w-${w.id}">
+            <button type="button" class="work-btn" aria-haspopup="dialog" aria-label="${w.video ? "Play" : "View"} ${esc(w.title)}, ${esc(cats[w.category].singular)}">
               <span class="work-media">${workMedia(w)}</span>
+              ${w.video ? `<span class="work-play" aria-hidden="true">${icon("play")}</span>` : ""}
               <span class="work-num" aria-hidden="true">${pad(n + 1)}</span>
               <span class="work-cap"><span class="work-title">${esc(w.title)}</span><span class="work-meta">${esc(meta(w))}</span></span>
             </button>
@@ -1114,9 +1236,8 @@ function renderCreative() {
   const fill = (w) => {
     current = w;
     const list = shown();
-    const [rw, rh] = RATIOS[w.ratio] || [1, 1];
-    media.style.setProperty("--ar", rw / rh);
-    media.innerHTML = workMedia(w, w.alt || w.title);
+    media.style.setProperty("--ar", ratioOf(w));
+    media.innerHTML = workMedia(w, { full: true, alt: w.alt || w.title });
     dialog.querySelector(".lb-count").textContent = `${pad(list.indexOf(w) + 1)} / ${pad(list.length)}`;
     dialog.querySelector(".lb-title").textContent = w.title;
     dialog.querySelector(".lb-cat").textContent = meta(w);
@@ -1153,6 +1274,7 @@ function renderCreative() {
     const w = current;
     const done = () => {
       dialog.close();
+      media.innerHTML = ""; // also stops a playing video
       history.replaceState(null, "", location.pathname + location.search);
     };
     morph(media, w && tileMedia(w), done);
