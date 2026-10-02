@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .bg { fill: #111111; }
+    .m { stroke: #fafafa; }
+    /* on dark browser tab bars, flip so the icon stays visible */
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #ededed; }
+      .m { stroke: #111111; }
+    }
+  </style>
+  <rect class="bg" width="64" height="64" rx="14" />
+  <path class="m" d="M19 46V19l13 17 13-17v27" fill="none" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

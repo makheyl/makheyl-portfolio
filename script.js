@@ -8,6 +8,7 @@ const SITE = {
   name: "Makheyl",
   email: "mchaildelacruz@gmail.com",
   github: "https://github.com/makheyl",
+  githubUser: "makheyl",
   resume: "assets/resume.pdf",
   status: "Developer intern at CloudSwyft",
   intro: [
@@ -523,6 +524,26 @@ const CREATIVE = [
   },
 ];
 
+/* ---------- GitHub contributions ----------
+   The home page asks CONTRIB_API for live numbers on every visit. This saved copy is
+   drawn first, and is what stays on screen if that service can't be reached.
+   days: only the days with activity, as "date": [contributions, level 1-4].
+   To refresh: open CONTRIB_API + "makheyl?y=last" and copy in the days whose count is above 0.
+*/
+const CONTRIB_API = "https://github-contributions-api.jogruber.de/v4/";
+const CONTRIB_WEEKS = 26; // about six months
+const CONTRIB_SNAPSHOT = {
+  updated: "2026-10-02",
+  days: {
+    "2026-07-21": [4, 1], "2026-07-22": [1, 1], "2026-07-23": [1, 1], "2026-07-24": [1, 1], "2026-07-25": [2, 1],
+    "2026-07-29": [3, 1], "2026-07-30": [1, 1], "2026-07-31": [1, 1], "2026-08-03": [3, 1], "2026-08-05": [13, 3],
+    "2026-08-13": [1, 1], "2026-08-24": [1, 1], "2026-08-25": [5, 1], "2026-08-26": [6, 2], "2026-08-28": [3, 1],
+    "2026-08-29": [9, 2], "2026-09-02": [2, 1], "2026-09-15": [4, 1], "2026-09-18": [18, 4], "2026-09-19": [4, 1],
+    "2026-09-22": [2, 1], "2026-09-23": [18, 4], "2026-09-24": [12, 3], "2026-09-25": [23, 4], "2026-09-27": [1, 1],
+    "2026-09-28": [2, 1], "2026-09-29": [12, 3], "2026-09-30": [2, 1], "2026-10-01": [5, 1], "2026-10-02": [1, 1],
+  },
+};
+
 /* ---------- Certifications ----------
    date: "YYYY-MM" or null; href: credential URL or null (link hidden when null)
 */
@@ -804,6 +825,7 @@ function renderHome() {
   if (divider) {
     divider.classList.add("reveal");
     divider.dataset.reveal = "draw";
+    renderContributions(divider);
   }
 
   const section = (num, title, href, body) => `
@@ -854,6 +876,158 @@ function renderHome() {
     section("02", "creative", "creative.html", creativeStrip) +
     section("03", "experience", "experience.html", expRows) +
     section("04", "stack", "stack.html", stackChips);
+}
+
+/* ==========================================================================
+   GitHub contributions (home)
+   ========================================================================== */
+const ymd = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+// Live numbers as { "YYYY-MM-DD": [count, level] }, or null if the service can't be reached
+async function loadContributions() {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 4000);
+  try {
+    const res = await fetch(`${CONTRIB_API}${SITE.githubUser}?y=last`, { signal: ctrl.signal });
+    if (!res.ok) throw new Error(`status ${res.status}`);
+    const data = await res.json();
+    const days = {};
+    data.contributions.forEach((d) => {
+      if (d.count > 0) days[d.date] = [d.count, d.level];
+    });
+    return days;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function renderContributions(after) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  // first column starts on the Sunday (CONTRIB_WEEKS - 1) weeks before this week
+  const start = new Date(today);
+  start.setDate(start.getDate() - start.getDay() - (CONTRIB_WEEKS - 1) * 7);
+
+  const dates = [];
+  for (let i = 0; i < CONTRIB_WEEKS * 7; i++) {
+    const d = new Date(start);
+    d.setDate(start.getDate() + i);
+    dates.push(d);
+  }
+
+  // month names sit above the first week that begins in that month
+  const months = [];
+  for (let w = 0; w < CONTRIB_WEEKS; w++) {
+    const m = dates[w * 7].getMonth();
+    if (w === 0 || m !== dates[(w - 1) * 7].getMonth()) months.push({ w, name: MONTHS[m] });
+  }
+  if (months.length > 1 && months[1].w < 3) months.shift(); // a partial first month would collide with the next
+
+  const section = document.createElement("section");
+  section.className = "contrib";
+  section.id = "contrib";
+  section.setAttribute("aria-labelledby", "contrib-title");
+  section.setAttribute("data-watch", "");
+  section.style.setProperty("--weeks", CONTRIB_WEEKS);
+  section.innerHTML = `
+    <div class="contrib-head reveal">
+      <h2 class="label" id="contrib-title">GitHub contributions</h2>
+      <a class="contrib-link ext" href="${esc(SITE.github)}" target="_blank" rel="noopener noreferrer">@${esc(SITE.githubUser)}</a>
+    </div>
+    <div class="contrib-body">
+      <div class="contrib-months" aria-hidden="true">${months.map((m) => `<span style="grid-column:${m.w + 1}">${m.name}</span>`).join("")}</div>
+      <div class="contrib-days" aria-hidden="true"><span>Mon</span><span>Wed</span><span>Fri</span></div>
+      <div class="contrib-grid" role="img">
+        ${dates
+          .map((d, i) =>
+            d > today
+              ? `<span class="contrib-cell is-future"></span>`
+              : `<span class="contrib-cell" data-date="${ymd(d)}" style="--w:${Math.floor(i / 7)};--dy:${i % 7}"></span>`
+          )
+          .join("")}
+      </div>
+    </div>
+    <div class="contrib-foot reveal">
+      <p class="contrib-total"></p>
+      <div class="contrib-legend" aria-hidden="true">Less<i data-l="0"></i><i data-l="1"></i><i data-l="2"></i><i data-l="3"></i><i data-l="4"></i>More</div>
+    </div>
+    <div class="contrib-tip" aria-hidden="true"></div>`;
+  after.after(section);
+
+  const grid = section.querySelector(".contrib-grid");
+  const cells = [...grid.querySelectorAll("[data-date]")];
+  const tip = section.querySelector(".contrib-tip");
+  const longDate = (key) => {
+    const [y, m, d] = key.split("-").map(Number);
+    return `${MONTHS[m - 1][0]}${MONTHS[m - 1].slice(1).toLowerCase()} ${d}, ${y}`;
+  };
+  const plural = (n) => `${n} contribution${n === 1 ? "" : "s"}`;
+
+  // Paints the cells from { date: [count, level] }
+  const paint = (days) => {
+    let total = 0;
+    let best = null;
+    cells.forEach((cell) => {
+      const [count, level] = days[cell.dataset.date] || [0, 0];
+      cell.dataset.l = level;
+      cell.dataset.count = count;
+      total += count;
+      if (count > 0 && (!best || count > best.count)) best = { count, date: cell.dataset.date };
+    });
+    section.querySelector(".contrib-total").innerHTML = `<strong>${total}</strong> ${total === 1 ? "contribution" : "contributions"} in the last 6 months`;
+    grid.setAttribute(
+      "aria-label",
+      `GitHub contributions for ${SITE.githubUser}: ${total} in the last 6 months.` +
+        (best ? ` Busiest day: ${plural(best.count)} on ${longDate(best.date)}.` : "")
+    );
+  };
+
+  paint(CONTRIB_SNAPSHOT.days);
+  loadContributions().then((days) => days && paint(days));
+
+  // tooltip
+  const hideTip = () => tip.classList.remove("is-on");
+  grid.addEventListener("pointerover", (e) => {
+    const cell = e.target.closest("[data-date]");
+    if (!cell) return hideTip();
+    const count = Number(cell.dataset.count);
+    tip.textContent = `${count ? plural(count) : "No contributions"} · ${longDate(cell.dataset.date)}`;
+    const box = section.getBoundingClientRect();
+    const r = cell.getBoundingClientRect();
+    const half = tip.offsetWidth / 2;
+    const x = Math.min(Math.max(r.left + r.width / 2 - box.left, half), box.width - half); // stay inside the section
+    tip.style.left = `${x}px`;
+    tip.style.top = `${r.top - box.top}px`;
+    tip.classList.add("is-on");
+  });
+  grid.addEventListener("pointerleave", hideTip);
+  document.addEventListener("pointerdown", (e) => !grid.contains(e.target) && hideTip());
+}
+
+/* ==========================================================================
+   Click pulse: a small ripple wherever empty space is clicked
+   ========================================================================== */
+function initPulse() {
+  if (REDUCED_MOTION) return;
+  const interactive =
+    'a, button, input, textarea, select, label, summary, video, audio, dialog, [role="button"], [contenteditable], .contrib-cell';
+  document.addEventListener("click", (e) => {
+    if (e.button !== 0 || e.target.closest(interactive)) return;
+    if (String(getSelection()).length) return; // finishing a text selection, not a click
+    const live = document.querySelectorAll(".pulse");
+    if (live.length >= 6) live[0].remove();
+
+    const pulse = document.createElement("span");
+    pulse.className = "pulse";
+    pulse.setAttribute("aria-hidden", "true");
+    pulse.style.left = `${e.clientX}px`;
+    pulse.style.top = `${e.clientY}px`;
+    pulse.innerHTML = "<i></i><i></i>";
+    pulse.addEventListener("animationend", (ev) => ev.target === pulse.lastElementChild && pulse.remove());
+    document.body.append(pulse);
+  });
 }
 
 /* ==========================================================================
@@ -1366,6 +1540,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (window.lucide) window.lucide.createIcons();
   initReveal();
+  initPulse();
 
   // re-scroll to hash targets after content renders
   if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();

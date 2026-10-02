@@ -278,6 +278,41 @@ html.theme-switching::view-transition-new(root) { z-index: 9999; }
 .mail-link svg { width: 17px; height: 17px; stroke-width: 1.6; flex: none; }
 .mail-link:hover span { text-decoration: underline; text-underline-offset: 4px; }
 
+/* ---------- Click pulse ---------- */
+.pulse {
+  position: fixed;
+  z-index: 90;
+  width: 0; height: 0;
+  pointer-events: none;
+}
+.pulse::before {
+  content: "";
+  position: absolute;
+  left: -3px; top: -3px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--text);
+  animation: pulse-dot .5s ease-out forwards;
+}
+.pulse i {
+  position: absolute;
+  left: -60px; top: -60px;
+  width: 120px; height: 120px;
+  border: 1px solid var(--text);
+  border-radius: 50%;
+  opacity: 0;
+  animation: pulse-ring .75s cubic-bezier(.2, .7, .2, 1) forwards;
+}
+.pulse i + i { animation-duration: .9s; animation-delay: .12s; }
+@keyframes pulse-ring {
+  from { transform: scale(.08); opacity: .6; }
+  to   { transform: scale(1); opacity: 0; }
+}
+@keyframes pulse-dot {
+  from { transform: scale(1); opacity: .9; }
+  to   { transform: scale(0); opacity: 0; }
+}
+
 /* ---------- Mobile top bar ---------- */
 .topbar { display: none; }
 .backdrop { display: none; }
@@ -547,6 +582,133 @@ a.ext:hover::after { transform: translate(2px, -3px); }
   background-repeat: no-repeat;
   border-top: 1px solid var(--border);
 }
+
+/* GitHub contributions: weeks run left to right, Sunday at the top */
+.contrib {
+  --cg: 5px; /* gap between squares */
+  position: relative;
+  margin-top: 64px;
+}
+.contrib-head,
+.contrib-foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+.contrib-link {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--muted);
+  transition: color .2s;
+}
+.contrib-link:hover { color: var(--text); }
+
+.contrib-body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 12px;
+  margin-top: 22px;
+}
+.contrib-months {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(var(--weeks), minmax(0, 1fr));
+  column-gap: var(--cg);
+  margin-bottom: 8px;
+}
+.contrib-months span,
+.contrib-days span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  white-space: nowrap;
+}
+.contrib-days {
+  grid-column: 1;
+  display: grid;
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  row-gap: var(--cg);
+}
+.contrib-days span { display: flex; align-items: center; }
+.contrib-days span:nth-child(1) { grid-row: 2; }
+.contrib-days span:nth-child(2) { grid-row: 4; }
+.contrib-days span:nth-child(3) { grid-row: 6; }
+
+.contrib-grid {
+  grid-column: 2;
+  display: grid;
+  grid-template-rows: repeat(7, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--cg);
+}
+.contrib-cell {
+  aspect-ratio: 1 / 1;
+  border-radius: 22%;
+  background: var(--bg-soft);
+  box-shadow: inset 0 0 0 1px var(--border);
+  transition: transform .2s var(--ease), background-color .3s;
+}
+.contrib-cell.is-future { visibility: hidden; }
+.contrib-cell[data-date]:hover { transform: scale(1.18); }
+/* four steps from the page colour to the text colour, so both themes just work */
+.contrib-cell[data-l="1"], .contrib-legend i[data-l="1"] { background: color-mix(in srgb, var(--text) 24%, var(--bg)); box-shadow: none; }
+.contrib-cell[data-l="2"], .contrib-legend i[data-l="2"] { background: color-mix(in srgb, var(--text) 48%, var(--bg)); box-shadow: none; }
+.contrib-cell[data-l="3"], .contrib-legend i[data-l="3"] { background: color-mix(in srgb, var(--text) 74%, var(--bg)); box-shadow: none; }
+.contrib-cell[data-l="4"], .contrib-legend i[data-l="4"] { background: var(--text); box-shadow: none; }
+
+/* squares pop in week by week once the graph is on screen */
+.contrib[data-watch]:not(.is-visible) .contrib-cell,
+.contrib[data-watch]:not(.is-visible) .contrib-months,
+.contrib[data-watch]:not(.is-visible) .contrib-days { opacity: 0; }
+.contrib.is-visible .contrib-cell {
+  animation: rv-pop .45s var(--ease) backwards;
+  animation-delay: calc(var(--w, 0) * 24ms + var(--dy, 0) * 10ms);
+}
+.contrib.is-visible .contrib-months,
+.contrib.is-visible .contrib-days { animation: rv-up .6s var(--ease) backwards; }
+
+.contrib-foot { margin-top: 18px; align-items: center; }
+.contrib-total { font-size: 15px; color: var(--muted); }
+.contrib-total strong { font-family: var(--font-mono); font-weight: 500; color: var(--text); }
+.contrib-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.contrib-legend i {
+  width: 11px; height: 11px;
+  border-radius: 3px;
+  background: var(--bg-soft);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.contrib-legend i:first-of-type { margin-left: 6px; }
+.contrib-legend i:last-of-type { margin-right: 6px; }
+
+.contrib-tip {
+  position: absolute;
+  z-index: 5;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: var(--inverse-bg);
+  color: var(--inverse-text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, calc(-100% - 4px));
+  transition: opacity .15s, transform .15s var(--ease);
+}
+.contrib-tip.is-on { opacity: 1; transform: translate(-50%, calc(-100% - 9px)); }
 
 .preview { margin-top: 120px; }
 .preview + .preview { margin-top: 96px; }
@@ -1352,6 +1514,12 @@ html:has(.lightbox[open]) { overflow: hidden; }
   .stack-group .tag { padding: 8px 14px; font-size: 14px; }
 
   .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+
+  .contrib { --cg: 2px; margin-top: 44px; }
+  .contrib-body { column-gap: 0; }
+  .contrib-days { display: none; }
+  .contrib-cell { border-radius: 2px; }
+  .contrib-foot { flex-direction: column; align-items: flex-start; gap: 10px; }
 
   .reel { margin: -8px 0 32px; }
   .reel-item { height: 96px; }
