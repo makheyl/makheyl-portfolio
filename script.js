@@ -95,13 +95,13 @@ const PROJECTS = [
     id: "kolektaph",
     name: "KolektaPH",
     subtitle: "Garbage Truck Tracker",
-    description: "Real-time garbage truck tracking, barangay SMS alerts, and the Ask Kolek assistant for the 14 barangays of Carmona, Cavite. One codebase, three apps: resident, driver, and a City ENRO dashboard. Currently a UI prototype running on mock data.",
-    badge: "Mobile + web",
-    tags: ["Civic tech", "Prototype"],
+    description: "Real-time garbage truck tracking, barangay SMS alerts, and the Ask Kolek assistant for the 14 barangays of Carmona, Cavite. One Expo codebase, three apps: resident, driver, and a City ENRO dashboard, running on a Supabase pilot database and as an installable web app that works offline. Pitched at DICT's Philippine Startup Challenge XI, where it reached the regional top 15 for Region IV-A.",
+    badge: "PSC XI · Top 15",
+    tags: ["DICT Region IV-A", "Civic tech", "Prototype"],
     icon: "truck",
     image: null, // TODO: add app icon
     links: [{ type: "github", href: GH + "kolektaph" }], // TODO: add live demo once deployed
-    builtWith: ["Expo", "React Native", "TypeScript", "MapLibre", "Zustand", "TanStack Query"],
+    builtWith: ["Expo", "React Native", "TypeScript", "Supabase", "MapLibre", "Zustand", "TanStack Query", "PWA"],
   },
   {
     id: "folio",
@@ -258,6 +258,22 @@ const PROJECTS = [
    visibleSkills: how many skill tags show before the "+N skills" pill.
 */
 const EXPERIENCE = [
+  {
+    id: "psc-xi",
+    initials: "PSC",
+    org: "Philippine Startup Challenge XI · DICT",
+    type: "Startup competition",
+    location: "DICT Region IV-A (CALABARZON)",
+    roles: [
+      {
+        title: "Team Lead & Founder, KolektaPH",
+        dateText: "2026 · Regional top 15",
+        description: "Led team KolektaPH, representing UPHSL, from concept note to pitch. Qualified for the regional top 15 of DICT Region IV-A with a garbage-collection tracker for the City of Carmona.",
+        skills: ["Pitching", "Product design", "Expo", "React Native", "Supabase"],
+        visibleSkills: 3,
+      },
+    ],
+  },
   {
     id: "cloudswyft",
     initials: "CS",
