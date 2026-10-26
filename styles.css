@@ -924,7 +924,7 @@ a.preview-row:hover > div:first-child { transform: translateX(6px); }
   border-top: 1px solid var(--border);
 }
 .project-foot .label { font-size: 12px; margin-right: 4px; }
-.project-foot span:not(.label) {
+.project-foot .built {
   font-family: var(--font-mono);
   font-size: 14px;
   color: var(--text-2);
@@ -1032,6 +1032,65 @@ a.preview-row:hover > div:first-child { transform: translateX(6px); }
   transition: color .2s;
 }
 .cred-link:hover { color: var(--text); }
+
+/* ==========================================================================
+   Credentials
+   ========================================================================== */
+.cred-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 0; border-bottom: 1px solid var(--border); }
+.cred-stats .stat-value { font-size: 32px; }
+.cred-section { margin-top: 80px; }
+.cred-section > .label { display: block; margin-bottom: 32px; }
+
+/* every role gets its own line, set large so the positions stand out */
+.cred-roles { margin-top: 20px; display: flex; flex-direction: column; }
+.cred-roles li {
+  position: relative;
+  padding: 12px 0 12px 22px;
+  border-bottom: 1px solid var(--border);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: var(--text);
+  transition: padding-left .3s var(--ease);
+}
+.cred-roles li:last-child { border-bottom: 0; }
+.cred-roles li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--faint);
+  transition: color .3s, transform .3s var(--ease);
+}
+.cred-roles li:hover { padding-left: 28px; }
+.cred-roles li:hover::before { color: var(--text); transform: translateX(3px); }
+
+.cred-awards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.cred-award {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-soft);
+  transition: border-color .25s, transform .35s var(--ease);
+}
+.cred-award:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+.cred-award-icon { width: 22px; height: 22px; stroke-width: 1.5; margin-bottom: 10px; color: var(--text); }
+.cred-award-title { font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+.cred-award-detail {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
 
 /* ==========================================================================
    Stack
@@ -1344,6 +1403,7 @@ html:has(.lightbox[open]) { overflow: hidden; }
 }
 .lb-panel[data-dir="-1"] { --dir: -1; }
 .lb-stage {
+  touch-action: pan-y; /* horizontal swipes go to the gallery */
   display: grid;
   place-items: center;
   min-height: 320px;
@@ -1478,14 +1538,28 @@ html:has(.lightbox[open]) { overflow: hidden; }
 
   body::after { left: 0; }
 
-  .main { padding: 40px 16px 80px; }
+  .main { padding: 40px 32px 80px; }
   .page-header { margin-bottom: 44px; }
   .page-title { font-size: 28px; }
   .page-intro { margin-top: 24px; font-size: 17px; }
 
-  .hero { grid-template-columns: 1fr; gap: 32px; padding-top: 8px; }
-  .portrait { max-width: 360px; }
+  /* tablets keep the desktop layouts, just narrower */
+  .hero { grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 32px; padding-top: 8px; }
+}
+
+/* phones: stack things into one column */
+@media (max-width: 640px) {
+  .main { padding: 40px 16px 80px; }
+
+  .hero { grid-template-columns: 1fr; gap: 32px; }
+  .portrait { max-width: 280px; }
   .hero-intro p:first-child { margin-top: 24px; }
+
+  /* bigger tap areas; the padding is cancelled by the margin so nothing moves */
+  .social a,
+  .view-all,
+  .contrib-link,
+  .topbar .brand { padding-block: 10px; margin-block: -10px; }
 
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 56px; }
   .stat { padding: 24px 16px 26px; border-bottom: 1px solid var(--border); }
@@ -1514,6 +1588,18 @@ html:has(.lightbox[open]) { overflow: hidden; }
   .stack-group .tag { padding: 8px 14px; font-size: 14px; }
 
   .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+
+  .cred-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cred-stats .stat { padding: 20px 10px 22px; border-bottom: 0; }
+  .cred-stats .stat:nth-child(2n) { border-right: 1px solid var(--border); }
+  .cred-stats .stat:nth-child(2n + 1) { padding-left: 10px; }
+  .cred-stats .stat:first-child { padding-left: 0; }
+  .cred-stats .stat:last-child { border-right: 0; }
+  .cred-stats .stat-value { font-size: 24px; }
+  .cred-stats .stat-label { font-size: 11px; letter-spacing: .04em; overflow-wrap: anywhere; }
+  .cred-section { margin-top: 56px; }
+  .cred-roles li { font-size: 16px; padding: 10px 0 10px 20px; }
+  .cred-awards { grid-template-columns: 1fr; }
 
   .contrib { --cg: 2px; margin-top: 44px; }
   .contrib-body { column-gap: 0; }

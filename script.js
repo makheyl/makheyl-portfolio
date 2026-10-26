@@ -33,6 +33,7 @@ const NAV = {
     { id: "creative", label: "Creative", href: "creative.html", icon: "palette" },
     { id: "gear", label: "Gear", href: "gear.html", icon: "laptop" },
     { id: "certifications", label: "Certifications", href: "certifications.html", icon: "award" },
+    { id: "credentials", label: "Credentials", href: "credentials.html", icon: "medal" },
   ],
   textOnly: [
     { id: "projects", label: "Projects", href: "projects.html" },
@@ -63,9 +64,13 @@ const PAGES = {
     title: "gear",
     intro: "The hardware I build, test, and play on every day.",
   },
+  credentials: {
+    title: "credentials",
+    intro: "I'm a BS Information Technology student majoring in Game Development at the University of Perpetual Help System Laguna, with a passion for creativity and continuous learning. Beyond academics, I strive to be a positive influence by uplifting and inspiring others through my behavior, teamwork, and dedication.",
+  },
   certifications: {
     title: "certifications",
-    intro: "Courses and credentials I've completed along the way.",
+    intro: "Certifications I've earned along the way.",
   },
 };
 
@@ -99,7 +104,7 @@ const PROJECTS = [
     badge: "PSC XI · Top 15",
     tags: ["DICT Region IV-A", "Civic tech", "Prototype"],
     icon: "truck",
-    image: null, // TODO: add app icon
+    image: "assets/projects/kolektaph.png",
     links: [{ type: "github", href: GH + "kolektaph" }], // TODO: add live demo once deployed
     builtWith: ["Expo", "React Native", "TypeScript", "Supabase", "MapLibre", "Zustand", "TanStack Query", "PWA"],
   },
@@ -559,6 +564,45 @@ const CONTRIB_SNAPSHOT = {
     "2026-09-28": [2, 1], "2026-09-29": [12, 3], "2026-09-30": [2, 1], "2026-10-01": [5, 1], "2026-10-02": [1, 1],
   },
 };
+
+/* ---------- Credentials ----------
+   Academic awards and leadership roles, shown on credentials.html.
+*/
+const AWARDS = [
+  { title: "Academic Excellence Award", detail: "1st Year" },
+  { title: "Dean's Lister", detail: "A.Y. 2024–2025" },
+  { title: "GAWAD III", detail: "Best Video Recap" },
+];
+
+const LEADERSHIP = [
+  {
+    initials: "CSSC",
+    org: "Computer Studies Student Council",
+    roles: [
+      "PRO, IT 3 – Game Development",
+      "Head of Creatives",
+      "Technical Head, Enrichment Seminar",
+      "Officer-in-Charge, Buntings",
+      "Merchandise Designer",
+      "Social Media Manager",
+    ],
+  },
+  {
+    initials: "SCE",
+    org: "Student Commission on Election",
+    roles: ["Technical Head, Miting de Avance"],
+  },
+  {
+    initials: "AWS",
+    org: "UPHSL AWS Learning Club",
+    roles: ["Head of Creatives", "Marketing Director"],
+  },
+  {
+    initials: "GDC",
+    org: "UPHSL Game Developers' Club",
+    roles: ["Multimedia Director"],
+  },
+];
 
 /* ---------- Certifications ----------
    date: "YYYY-MM" or null; href: credential URL or null (link hidden when null)
@@ -1080,7 +1124,7 @@ function renderProjects() {
       ${
         p.builtWith.length
           ? `<div class="project-foot" data-stagger><span class="label">Built with</span>${p.builtWith
-              .map((t) => `<span class="ext">${esc(t)}</span>`)
+              .map((t) => `<span class="built">${esc(t)}</span>`)
               .join("")}</div>`
           : ""
       }
@@ -1165,6 +1209,71 @@ function renderGear() {
       <p class="gear-spec">${esc(g.spec)}</p>
     </article>`
   ).join("");
+}
+
+/* ==========================================================================
+   Credentials
+   ========================================================================== */
+function renderCredentials() {
+  const roleCount = LEADERSHIP.reduce((n, g) => n + g.roles.length, 0);
+  const summary = [
+    { value: roleCount, label: "Leadership roles" },
+    { value: LEADERSHIP.length, label: "Organizations" },
+    { value: AWARDS.length, label: "Academic awards" },
+  ];
+
+  document.getElementById("credentials-root").innerHTML = `
+    <div class="stats cred-stats">
+      ${summary
+        .map(
+          (s) => `<div class="stat reveal" aria-label="${s.value} ${esc(s.label)}">
+            <div class="stat-value"><span data-count="${s.value}" data-suffix="">${s.value}</span></div>
+            <div class="stat-label">${esc(s.label)}</div>
+          </div>`
+        )
+        .join("")}
+    </div>
+
+    <section class="cred-section" aria-labelledby="cred-leadership">
+      <h2 class="label reveal" id="cred-leadership">Leadership</h2>
+      <div class="timeline">
+        ${LEADERSHIP.map(
+          (g) => `
+          <article class="tl-item" data-watch>
+            <div class="tl-mark" aria-hidden="true">${esc(g.initials)}</div>
+            <div class="tl-body">
+              <h3 class="tl-org">${esc(g.org)}</h3>
+              <p class="tl-meta">${g.roles.length} ${g.roles.length === 1 ? "role" : "roles"}</p>
+              <ul class="cred-roles" data-stagger style="--step:60ms">
+                ${g.roles.map((r) => `<li>${esc(r)}</li>`).join("")}
+              </ul>
+            </div>
+          </article>`
+        ).join("")}
+      </div>
+    </section>
+
+    <section class="cred-section" aria-labelledby="cred-awards">
+      <h2 class="label reveal" id="cred-awards">Academic awards</h2>
+      <ul class="cred-awards">
+        ${AWARDS.map(
+          (a) => `<li class="cred-award reveal" data-reveal="pop">
+            ${icon("award", "cred-award-icon")}
+            <span class="cred-award-title">${esc(a.title)}</span>
+            <span class="cred-award-detail">${esc(a.detail)}</span>
+          </li>`
+        ).join("")}
+      </ul>
+    </section>`;
+
+  // the summary numbers count up as they appear
+  if (!REDUCED_MOTION) {
+    document.querySelectorAll(".cred-stats .stat").forEach((stat) => {
+      const num = stat.querySelector("[data-count]");
+      num.textContent = "0";
+      stat.addEventListener("reveal", () => countUp(num, Number(stat.style.getPropertyValue("--i")) * 70), { once: true });
+    });
+  }
 }
 
 /* ==========================================================================
@@ -1498,6 +1607,21 @@ function renderCreative() {
     if (e.key === "ArrowRight") step(1);
   });
 
+  // swipe left / right on the picture to move between works
+  const stage = dialog.querySelector(".lb-stage");
+  let swipe = null;
+  stage.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "mouse") swipe = { x: e.clientX, y: e.clientY };
+  });
+  stage.addEventListener("pointerup", (e) => {
+    if (!swipe) return;
+    const dx = e.clientX - swipe.x;
+    const dy = e.clientY - swipe.y;
+    swipe = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) step(dx < 0 ? 1 : -1);
+  });
+  stage.addEventListener("pointercancel", () => (swipe = null));
+
   // creative.html#<id> opens that work
   const linked = CREATIVE.find((w) => w.id === decodeURIComponent(location.hash.slice(1)));
   if (linked) open(linked, false);
@@ -1552,6 +1676,7 @@ document.addEventListener("DOMContentLoaded", () => {
     stack: renderStack,
     gear: renderGear,
     certifications: renderCertifications,
+    credentials: renderCredentials,
   })[page]?.();
 
   if (window.lucide) window.lucide.createIcons();
