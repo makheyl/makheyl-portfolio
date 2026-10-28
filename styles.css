@@ -1288,6 +1288,9 @@ a.preview-row:hover > div:first-child { transform: translateX(6px); }
 .work-btn:focus-visible .work-media img,
 .strip-item:hover .work-media img { filter: none; }
 @media (hover: none) { .work-media img { filter: none; } }
+/* owner setting: show gallery images in colour at rest */
+html[data-gallery="color"] .work-media img,
+html[data-gallery="color"] .reel-item img { filter: none; }
 
 .work-num {
   position: absolute;
@@ -1421,6 +1424,7 @@ html:has(.lightbox[open]) { overflow: hidden; }
 }
 .lb-media img { object-fit: contain; }
 .lb-media video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
+.lb-media iframe { display: block; width: 100%; height: 100%; border: 0; background: #000; }
 .lb-info {
   display: flex;
   flex-direction: column;
@@ -1625,3 +1629,22 @@ html:has(.lightbox[open]) { overflow: hidden; }
 @media (min-width: 901px) {
   .topbar, .backdrop { display: none !important; }
 }
+
+/* ---------- Owner sign-in prompt (long-press the name) ---------- */
+.brand { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+.owner-prompt {
+  position: fixed;
+  left: 50%; bottom: 24px;
+  z-index: 100;
+  width: min(360px, calc(100vw - 32px));
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .45);
+  transform: translateX(-50%);
+  animation: rv-up .35s var(--ease) backwards;
+}
+.owner-prompt-title { font-family: var(--font-mono); font-size: 15px; }
+.owner-prompt-text { margin-top: 6px; font-size: 14px; color: var(--muted); }
+.owner-prompt-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }

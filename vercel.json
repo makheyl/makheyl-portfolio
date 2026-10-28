@@ -1,0 +1,9 @@
+{
+  "rewrites": [{ "source": "/edit", "destination": "/api/auth/login" }],
+  "headers": [
+    {
+      "source": "/data/content.js",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+    }
+  ]
+}

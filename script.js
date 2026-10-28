@@ -1,625 +1,61 @@
 /* ==========================================================================
    Makheyl — portfolio
-   All site content lives in the data blocks below. Edit these, not the HTML.
+   All site content lives in data/content.js (window.CONTENT), edited from the
+   site's owner editor or by hand. This file only renders it.
    ========================================================================== */
 
-/* ---------- Site / owner ---------- */
-const SITE = {
-  name: "Makheyl",
-  email: "mchaildelacruz@gmail.com",
-  github: "https://github.com/makheyl",
-  githubUser: "makheyl",
-  resume: "assets/resume.pdf",
-  status: "Developer intern at CloudSwyft",
-  intro: [
-    "I'm a web developer who loves building SaaS products and full-stack web apps. I'm currently a developer intern at CloudSwyft and a 4th-year BSIT student specializing in game development.",
-    "Right now I'm building KolektaPH, a garbage truck tracker for Carmona, and Folio, an editor for interactive ebooks, alongside SDG-aligned capstone games at school. I love turning rough ideas into things people actually use.",
-  ],
-  social: [
-    { label: "github", href: "https://github.com/makheyl" },
-    { label: "linkedin", href: "https://www.linkedin.com/in/mchail-dela-cruz" },
-    { label: "email", href: "mailto:mchaildelacruz@gmail.com" },
-    { label: "resume", href: "assets/resume.pdf" },
-  ],
-  portrait: {
-    src: "assets/portrait-gray.jpg",
-    alt: "Black-and-white close-up portrait of Makheyl wearing round glasses",
-  },
-};
-
-/* ---------- Navigation ---------- */
-const NAV = {
-  withIcons: [
-    { id: "creative", label: "Creative", href: "creative.html", icon: "palette" },
-    { id: "gear", label: "Gear", href: "gear.html", icon: "laptop" },
-    { id: "certifications", label: "Certifications", href: "certifications.html", icon: "award" },
-    { id: "credentials", label: "Credentials", href: "credentials.html", icon: "medal" },
-  ],
-  textOnly: [
-    { id: "projects", label: "Projects", href: "projects.html" },
-    { id: "experience", label: "Experience", href: "experience.html" },
-    { id: "stack", label: "Stack", href: "stack.html" },
-  ],
-};
-
-/* ---------- Page headers ---------- */
-const PAGES = {
-  projects: {
-    title: "projects",
-    intro: "Things I've designed and built, spanning web apps, SaaS tools, and SDG-aligned games.",
-  },
-  experience: {
-    title: "experience",
-    intro: "Where I've been building, from web systems for local government and my internship at CloudSwyft to design work and SDG-aligned games at school.",
-  },
-  stack: {
-    title: "tech stack",
-    intro: "The tools, frameworks, and platforms I reach for, across the web, SaaS, games, and cloud.",
-  },
-  creative: {
-    title: "creative",
-    intro: "Pubmats, graphic design, and 3D work. The visual side of what I make, from marketing layouts to Blender renders.",
-  },
-  gear: {
-    title: "gear",
-    intro: "The hardware I build, test, and play on every day.",
-  },
-  credentials: {
-    title: "credentials",
-    intro: "I'm a BS Information Technology student majoring in Game Development at the University of Perpetual Help System Laguna, with a passion for creativity and continuous learning. Beyond academics, I strive to be a positive influence by uplifting and inspiring others through my behavior, teamwork, and dedication.",
-  },
-  certifications: {
-    title: "certifications",
-    intro: "Certifications I've earned along the way.",
-  },
-};
-
-/* ---------- Home stats (value, label, link) ---------- */
-const STATS = [
-  { value: "10+", label: "Projects", href: "projects.html" },
-  { value: "3", label: "Capstone titles", href: "projects.html#shhkool" },
-  { value: "4th yr", label: "BSIT", href: "experience.html#uphsl" },
-  { value: "Intern", label: "@ CloudSwyft", href: "experience.html#cloudswyft" },
-];
-
-/* ---------- Projects ----------
-   Listed in display order (web first). Content mirrors the READMEs on
-   github.com/makheyl.
-   badge:     filled pill
-   tags:      outlined pills
-   icon:      Lucide icon name used as a placeholder app icon
-   image:     optional path to a real app icon (overrides `icon`)
-   links:     buttons; type "github" or "demo", optional `label` overrides the text
-              (empty array = no public links, shows `note`)
-   builtWith: optional footer row
+/* ---------- Content ----------
+   The names below are what the renderers use. bindContent() points them at
+   window.CONTENT; items marked hidden: true are left out unless showHidden is set
+   (the editor uses that to show hidden items while editing).
 */
-const GH = "https://github.com/makheyl/";
+let SITE, NAV, PAGES, HOME, APPEARANCE, STATS, PROJECTS, EXPERIENCE, STACK, GEAR;
+let CREATIVE_CATEGORIES, CREATIVE, CONTRIB_API, CONTRIB_WEEKS, CONTRIB_SNAPSHOT;
+let AWARDS, LEADERSHIP, CERTIFICATIONS;
 
-const PROJECTS = [
-  {
-    id: "kolektaph",
-    name: "KolektaPH",
-    subtitle: "Garbage Truck Tracker",
-    description: "Real-time garbage truck tracking, barangay SMS alerts, and the Ask Kolek assistant for the 14 barangays of Carmona, Cavite. One Expo codebase, three apps: resident, driver, and a City ENRO dashboard, running on a Supabase pilot database and as an installable web app that works offline. Pitched at DICT's Philippine Startup Challenge XI, where it reached the regional top 15 for Region IV-A.",
-    badge: "PSC XI · Top 15",
-    tags: ["DICT Region IV-A", "Civic tech", "Prototype"],
-    icon: "truck",
-    image: "assets/projects/kolektaph.png",
-    links: [{ type: "github", href: GH + "kolektaph" }], // TODO: add live demo once deployed
-    builtWith: ["Expo", "React Native", "TypeScript", "Supabase", "MapLibre", "Zustand", "TanStack Query", "PWA"],
-  },
-  {
-    id: "folio",
-    name: "Folio",
-    subtitle: "Interactive Ebook Editor",
-    description: "A browser-based editor for interactive, animated ebooks, like a simplified Canva built around book pages. Every book exports as one standalone HTML file that works offline with no install or account.",
-    badge: "Web app",
-    tags: ["TypeScript", "Offline export"],
-    icon: "book-open",
-    image: null, // TODO: add app icon
-    links: [
-      { type: "github", href: GH + "ebook-maker" },
-      { type: "demo", href: "https://ebook-maker-woad.vercel.app" },
-    ],
-    builtWith: ["React", "TypeScript", "Vite", "Tailwind CSS", "Zustand", "Dexie", "Playwright"],
-  },
-  {
-    id: "music-mixer",
-    name: "Music Mixer",
-    subtitle: "AI Mashup Analyzer",
-    description: "Detects the BPM, key, and chord progression of two songs, scores how well they mix, then time-stretches and pitch-shifts one to export a mashup, with an optional Claude-generated bridge.",
-    badge: "AI tool",
-    tags: ["Audio", "Python"],
-    icon: "audio-lines",
-    image: null, // TODO: add app icon
-    links: [{ type: "github", href: GH + "music-mixer" }],
-    builtWith: ["Python", "FastAPI", "librosa", "Tailwind CSS", "Anthropic API"],
-  },
-  {
-    id: "studybudget",
-    name: "StudyBudget",
-    subtitle: "Student Finance",
-    description: "A budgeting tool that helps students track allowances and expenses, with a React client and an Express API backed by MongoDB.",
-    badge: "Full-stack",
-    tags: ["Finance"],
-    icon: "wallet",
-    image: null, // TODO: add app icon
-    links: [{ type: "github", href: GH + "student-budgeting" }],
-    builtWith: ["React", "Vite", "Tailwind CSS", "Recharts", "Node.js", "Express", "MongoDB", "JWT"],
-  },
-  {
-    id: "opd-queue",
-    name: "OPD Queue",
-    subtitle: "Out-Patient Queueing",
-    description: "A queueing system for the out-patient department of Carmona's City Health Office, with priority handling, a doctor panel for serving and transferring patients, and a public kiosk display.",
-    badge: "Public sector",
-    tags: ["Healthcare", "Government"],
-    icon: "hospital",
-    image: null, // TODO: add app icon
-    links: [{ type: "github", href: GH + "opd-queueing-cho-carmona" }],
-    builtWith: ["PHP", "MySQL", "JavaScript"],
-  },
-  {
-    id: "lab-queue",
-    name: "Lab Queue",
-    subtitle: "Laboratory Queueing",
-    description: "The laboratory queue for the same office: encoder interview stations, an extraction station for phlebotomists, a kiosk board that resets itself overnight, and daily to monthly reports with CSV export.",
-    badge: "Public sector",
-    tags: ["Healthcare", "Government"],
-    icon: "flask-conical",
-    image: null, // TODO: add app icon
-    links: [{ type: "github", href: GH + "php-lab-queueing" }],
-    builtWith: ["PHP", "MariaDB", "JavaScript"],
-  },
-  {
-    id: "pennywise",
-    name: "PennyWise AI",
-    subtitle: "Financial Assistant",
-    description: "A group project that looks at how you actually spend and gives personalized money tips, powered by a locally run Mistral 7B model.",
-    badge: "Group project",
-    tags: ["AI", "Finance"],
-    icon: "piggy-bank",
-    image: null, // TODO: add app icon
-    links: [{ type: "github", href: GH + "financial-assistant" }],
-    builtWith: ["Python", "HTML", "Mistral 7B"],
-  },
-  {
-    id: "shhkool",
-    name: "SHHKOOL",
-    subtitle: "Classroom Noise Game",
-    description: "A classroom noise-management game played with your actual voice. Keep the room quiet through a real-time Teacher-Attention Cycle, with a keyboard fallback if there's no mic.",
-    badge: "Capstone",
-    tags: ["SDG 4", "Prototype"],
-    icon: "mic",
-    image: null, // TODO: add app icon
-    links: [
-      { type: "github", href: GH + "shhkool-ui" },
-      { type: "demo", href: "https://shhkool-ui.vercel.app" },
-    ],
-    builtWith: ["HTML", "CSS", "JavaScript"],
-  },
-  {
-    id: "terraqua-clash",
-    name: "Terraqua Clash",
-    subtitle: "Survival Arena",
-    description: "A physics-based multiplayer animal survival arena built around a real-time Tide-Shift mechanic. The prototype is a top-down arena with local multiplayer.",
-    badge: "Capstone",
-    tags: ["SDG 14", "SDG 15", "Prototype"],
-    icon: "waves",
-    image: null, // TODO: add app icon
-    links: [
-      { type: "github", href: GH + "terraqua_clash" },
-      { type: "demo", href: "https://terraqua-clash.vercel.app" },
-    ],
-    builtWith: ["JavaScript", "Canvas 2D"],
-  },
-  {
-    id: "bayanihan",
-    name: "Bayanihan",
-    subtitle: "Disaster Rescue",
-    description: "Take a bangka through a flooded coastal barangay, rescue stranded residents, and ferry them to the evacuation center. A separate 3D prototype saves each mission to a Supabase leaderboard.",
-    badge: "Capstone",
-    tags: ["SDG 11", "Prototype"],
-    icon: "sailboat",
-    image: null, // TODO: add app icon
-    links: [
-      { type: "github", href: GH + "bayanihan-rescuegame" },
-      { type: "demo", href: "https://bayanihan-rescuegame.vercel.app" },
-      { type: "github", href: GH + "Group08_DatabaseConnectivity", label: "3D + db prototype" },
-    ],
-    builtWith: ["JavaScript", "Canvas 2D", "Three.js", "Supabase"],
-  },
-  {
-    id: "dust-and-shine",
-    name: "Dust & Shine",
-    subtitle: "Cleaning Game",
-    description: "A browser-based casual cleaning game.",
-    badge: "Browser game",
-    tags: ["Casual"],
-    icon: "sparkles",
-    image: null, // TODO: add app icon
-    links: [], // TODO: add links once the repo is on GitHub
-    note: "Source not published yet",
-    builtWith: [],
-  },
-  {
-    id: "cloudswyftcrm",
-    name: "CloudSwyftCRM",
-    subtitle: "Internal CRM",
-    description: "An internal CRM with SharePoint data, automated flows, and interactive email campaigns with CSAT ratings.",
-    badge: "Internship",
-    tags: ["Internal tool"],
-    icon: "layout-dashboard",
-    image: null, // TODO: add app icon
-    links: [],
-    note: "Internal to CloudSwyft, not publicly available",
-    builtWith: ["Power Apps", "SharePoint", "Power Automate", "Adaptive Cards"],
-  },
-];
+function bindContent(c = window.CONTENT, { showHidden = false } = {}) {
+  const shown = (list = []) => (showHidden ? list : list.filter((x) => !x.hidden));
+  SITE = { ...c.site, social: shown(c.site.social) };
+  NAV = {
+    withIcons: shown(c.nav.withIcons),
+    textOnly: shown(c.nav.textOnly),
+  };
+  PAGES = c.pages;
+  HOME = c.home || { sections: [] };
+  APPEARANCE = c.appearance || {};
+  STATS = shown(c.stats);
+  PROJECTS = shown(c.projects);
+  EXPERIENCE = shown(c.experience);
+  STACK = shown(c.stack);
+  GEAR = shown(c.gear);
+  CREATIVE_CATEGORIES = c.creative.categories;
+  CREATIVE = shown(c.creative.items);
+  CONTRIB_API = c.contrib.api;
+  CONTRIB_WEEKS = c.contrib.weeks;
+  CONTRIB_SNAPSHOT = c.contrib.snapshot;
+  AWARDS = shown(c.awards);
+  LEADERSHIP = shown(c.leadership);
+  CERTIFICATIONS = shown(c.certifications);
+}
+bindContent();
 
-/* ---------- Experience ----------
-   start / end: "YYYY-MM" (end: null = present). Durations are computed.
-   dateText:    overrides the date line entirely (e.g. "Graduated 2023")
-   visibleSkills: how many skill tags show before the "+N skills" pill.
-*/
-const EXPERIENCE = [
-  {
-    id: "psc-xi",
-    initials: "PSC",
-    org: "Philippine Startup Challenge XI · DICT",
-    type: "Startup competition",
-    location: "DICT Region IV-A (CALABARZON)",
-    roles: [
-      {
-        title: "Team Lead & Founder, KolektaPH",
-        dateText: "2026 · Regional top 15",
-        description: "Led team KolektaPH, representing UPHSL, from concept note to pitch. Qualified for the regional top 15 of DICT Region IV-A with a garbage-collection tracker for the City of Carmona.",
-        skills: ["Pitching", "Product design", "Expo", "React Native", "Supabase"],
-        visibleSkills: 3,
-      },
-    ],
-  },
-  {
-    id: "cloudswyft",
-    initials: "CS",
-    org: "CloudSwyft",
-    type: "Internship",
-    location: "Philippines", // TODO: confirm city / work setup (on-site, hybrid, remote)
-    roles: [
-      {
-        title: "Developer Intern", // TODO: confirm exact title
-        start: "2026-07",
-        end: null, // TODO: set end date when the internship wraps up
-        description: "Contributing to CloudSwyftCRM, an internal CRM with SharePoint data, automated flows, and interactive email campaigns that collect CSAT ratings.",
-        skills: ["SharePoint", "Power Automate", "Power Apps", "Adaptive Cards"],
-        visibleSkills: 2,
-      },
-    ],
-  },
-  {
-    id: "city-health-office",
-    initials: "CHO",
-    org: "City Health Office, City Government of Carmona",
-    type: "Government",
-    location: "Carmona, Cavite",
-    roles: [
-      {
-        title: "Software Developer",
-        start: "2025-07",
-        end: null,
-        description: "Built the out-patient (OPD) and laboratory queueing systems for the City Health Office, with priority handling, laboratory waiting queues, patient transfer workflows, and public kiosk displays. Designed and maintained structured reporting features, backed by PHP and MySQL.",
-        skills: ["PHP", "MySQL", "Queueing workflows", "Reporting"],
-        visibleSkills: 2,
-      },
-    ],
-  },
-  {
-    id: "lumbre",
-    initials: "LG",
-    org: "Lumbre Gunsmith Shop",
-    type: "Design & Operations",
-    location: "Silang, Cavite",
-    roles: [
-      {
-        title: "Designer & Laser Engraving Operator",
-        start: "2023-10",
-        end: null,
-        description: "Design custom engravings in Photoshop, translating client requirements into precise vector artwork, then run the laser engraving machines in LightBurn to produce them.",
-        skills: ["Photoshop", "LightBurn", "Vector design"],
-        visibleSkills: 2,
-      },
-    ],
-  },
-  {
-    id: "ccis",
-    initials: "CCIS",
-    org: "CCIS Shooting Range",
-    type: "Digital Operations",
-    location: "Silang, Cavite",
-    roles: [
-      {
-        title: "Digital Operations Manager",
-        start: "2023-11",
-        end: "2026-01",
-        description: "Created digital publications and ran marketing campaigns that drew shooters from multiple locations, using current trends and analytics to grow engagement and brand visibility online.",
-        skills: ["Digital marketing", "Content publishing", "Analytics", "Adobe Creative Cloud"],
-        visibleSkills: 2,
-      },
-    ],
-  },
-  {
-    id: "uphsl",
-    initials: "UP",
-    org: "University of Perpetual Help System Laguna",
-    type: "BSIT · Game Development",
-    location: "College of Computer Studies · A.Y. 2023–2027",
-    roles: [
-      {
-        title: "BS Information Technology, major in Game Development",
-        start: "2023-09",
-        end: null,
-        durationOverride: "4th year",
-        description: "Dean's Lister. Capstone in progress: SDG-aligned games including SHHKOOL, Terraqua Clash, and Bayanihan.",
-        skills: ["Dean's Lister", "Unity 6", "Three.js", "WebGL", "Blender", "Roblox Studio"],
-        visibleSkills: 3,
-      },
-    ],
-  },
-  {
-    id: "shs",
-    initials: "AL",
-    org: "Angelo Levardo L. Senior High School",
-    type: "Senior High School · STEM",
-    location: "",
-    roles: [
-      {
-        title: "STEM Strand",
-        dateText: "Graduated 2023",
-        description: "Graduated With High Honors and received a Research Award.",
-        skills: ["With High Honors", "Research Awardee"],
-        visibleSkills: 2,
-      },
-    ],
-  },
-];
-
-/* ---------- Stack ---------- */
-const STACK = [
-  { category: "Frontend", items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "React Native", "Expo", "Vite", "Tailwind CSS"] },
-  { category: "Backend & Data", items: ["Node.js", "Express", "PHP", "Python", "FastAPI", "MongoDB", "Supabase", "PostgreSQL", "MySQL", "MariaDB"] },
-  { category: "AI", items: ["Anthropic API", "Claude", "ChatGPT", "Mistral 7B", "librosa"] },
-  { category: "Cloud & Tools", items: ["Vercel", "Google Cloud", "AWS", "Azure", "Git", "GitHub", "VS Code", "Claude Code", "Playwright"] },
-  { category: "Game Development", items: ["C#", "Unity 6", "Three.js", "Canvas 2D", "WebGL", "Blender", "Roblox Studio"] },
-  { category: "Design", items: ["Photoshop", "Adobe Creative Cloud", "Photo & video editing", "LightBurn"] },
-  { category: "Power Platform", items: ["Power Apps", "Power Automate", "SharePoint", "Microsoft Lists", "Adaptive Cards"] },
-];
-
-/* ---------- Gear ----------
-   image: optional product photo path
-*/
-const GEAR = [
-  { name: "MacBook Air M5", spec: "Main laptop · 13\" · 16GB / 512GB", icon: "laptop", image: null /* TODO: product photo */ },
-  { name: "Acer Nitro V", spec: "Secondary laptop", icon: "laptop", image: null /* TODO: product photo; add specs */ },
-  { name: "iPhone 16 Pro Max", spec: "Daily phone", icon: "smartphone", image: null /* TODO: product photo */ },
-];
-
-/* ---------- Creative ----------
-   Shown on creative.html in this order, and on the home page (featured: true, first 4).
-   category: "pubmat" | "design" | "3d"
-   ratio:    the picture's shape as "width:height", e.g. "1:1", "16:9", "4:3", "4:5"
-   image:    the full-size picture, shown when a work is opened
-   thumb:    optional smaller copy for the grid (falls back to image)
-   video:    optional video file; image is then used as its poster
-   alt:      what the picture shows, for screen readers
-   tools:    shown as tags when a work is opened (leave [] to show none)
-
-   Files live in assets/creative/web/. work("name.jpg") fills in image and thumb for a
-   file that has a copy in web/ and in web/thumbs/. For a new piece without a thumbnail,
-   write image: "assets/creative/web/name.jpg" instead. While image is null the tile
-   shows generated placeholder art.
-*/
-const CREATIVE_CATEGORIES = [
-  { id: "pubmat", label: "Pubmats", short: "Pubmats", singular: "Pubmat" },
-  { id: "design", label: "Graphic design", short: "Design", singular: "Graphic design" },
-  { id: "3d", label: "3D work", short: "3D", singular: "3D work" },
-];
-
-const CW = "assets/creative/web/";
-const work = (file) => ({ image: CW + file, thumb: CW + "thumbs/" + file });
-
-const CREATIVE = [
-  {
-    id: "chaintalk", category: "pubmat", title: "ChainTalk 2026", year: 2026, ratio: "1:1", ...work("pubmat-chaintalk.jpg"), featured: true,
-    description: "Key visual for ChainTalk 2026, a blockchain education and digital innovation event.",
-    alt: "Poster reading Chain Talk 2026 in purple and pink halftone lettering over a pastel galaxy with floating glass cubes.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "old-house", category: "3d", title: "Old House — Interior", year: null, ratio: "16:9", ...work("3d-old-house.jpg"), featured: true,
-    description: "An old wooden house interior lit by lanterns and a candle, modelled and rendered in Blender.",
-    alt: "3D render of a warm, lamp-lit wooden room with lattice windows, a round table with books and a lantern, and clay jars.",
-    tools: ["Blender"],
-  },
-  {
-    id: "council-polo-2025", category: "design", title: "CSSC Council Polo 2025–26", year: null, ratio: "1:1", ...work("design-council-shirt-2025.jpg"), featured: true,
-    description: "Polo shirt for the Computer Studies Student Council, A.Y. 2025–2026.",
-    alt: "Polo shirt mockup in black and grey with magenta shards, a large CCS Computer Studies wordmark and the CSSC logo.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "gamex", category: "pubmat", title: "GameX 2026", year: 2026, ratio: "1:1", ...work("pubmat-gamex.jpg"), featured: true,
-    description: "Event poster for GameX 2026, powered by the UPHSL Game Developers' Club.",
-    alt: "Poster reading GameX 2026, Game On, Chain On, over ancient temple ruins framed by heavy chains.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "bus-stop", category: "3d", title: "Bus Stop at Night", year: null, ratio: "16:9", ...work("3d-bus-stop.jpg"),
-    description: "A low-poly diorama of a figure waiting at a bus stop under a single street lamp.",
-    alt: "Low-poly 3D scene of a person sitting on a bench at a bus stop at night, lit by a street lamp and a red sign.",
-    tools: ["Blender"],
-  },
-  {
-    id: "university-week-logo", category: "design", title: "University Week 2025 Logo", year: 2025, ratio: "1:1", ...work("design-university-week-logo.jpg"),
-    description: "Entry for the UPHSL University Week 2025 logo-making competition.",
-    alt: "Logo with a large golden 50 behind the university seal, a trophy, splashing water, and the words UPHSL University Week 2025.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "earthquake-drill", category: "pubmat", title: "Earthquake Drill", year: null, ratio: "1:1", ...work("pubmat-earthquake-drill.jpg"),
-    description: "A brutalist-style pubmat for an earthquake drill, made for the Computer Studies Student Council.",
-    alt: "Poster with bold red Earthquake Drill lettering over a photo of students walking with hands over their heads.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "cake", category: "3d", title: "Caramel Cake", year: 2025, ratio: "16:9", ...work("3d-cake.jpg"),
-    description: "Two slices of layered cake with a textured sponge and dripping caramel glaze.",
-    alt: "3D render of two slices of layered sponge cake with caramel glaze on a dark plate.",
-    tools: ["Blender"],
-  },
-  {
-    id: "dept-polo-circuit", category: "design", title: "CCS Department Polo — Circuit", year: null, ratio: "1:1", ...work("design-dept-shirt-circuit.jpg"),
-    description: "Department shirt for the College of Computer Studies, A.Y. 2026–2027.",
-    alt: "Black polo shirt mockup with magenta stripes, faint circuit lines, and a vertical CCS Computer Studies wordmark.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "ccs-days", category: "pubmat", title: "CCS Days Reschedule", year: null, ratio: "1:1", ...work("pubmat-ccs-days.jpg"),
-    description: "Announcement pubmat for the rescheduling of CCS Days.",
-    alt: "Purple poster with a construction crane and the words CCS Days Reschedule, Stay Informed.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "old-house-lantern", category: "3d", title: "Old House — Lantern", year: null, ratio: "16:9", ...work("3d-old-house-lantern.jpg"),
-    description: "A close-up from the old house scene: a lit lantern, stacked books, and a bottle on the table.",
-    alt: "3D render close-up of a glowing lantern beside stacked wooden books and a red bottle on a round table.",
-    tools: ["Blender"],
-  },
-  {
-    id: "committee-jersey", category: "design", title: "Creatives Committee Jersey", year: null, ratio: "4:3", ...work("design-committee-shirt.jpg"),
-    description: "Front and back jersey design for the CSSC Creatives Committee.",
-    alt: "Front and back of a white jersey with black and magenta panels, the CSSC logo, and Creatives Committee on the back.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "committee-application", category: "pubmat", title: "Committee Application", year: 2026, ratio: "1:1", ...work("pubmat-committee-application.jpg"),
-    description: "A clean, light pubmat calling for applications to the CSSC committees.",
-    alt: "White poster with soft paper waves and the words CSSC Committee Application in pink and purple.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "old-house-timelapse", category: "3d", title: "Old House — Timelapse", year: null, ratio: "16:9", ...work("3d-old-house-timelapse.jpg"),
-    video: CW + "3d-old-house-timelapse.mp4",
-    description: "A one-minute timelapse of modelling the old house scene in Blender.",
-    alt: "Blender viewport showing the untextured model of the old house room.",
-    tools: ["Blender"],
-  },
-  {
-    id: "council-polo-2026", category: "design", title: "CSSC Council Polo 2026–27", year: null, ratio: "1:1", ...work("design-council-shirt-2026.jpg"),
-    description: "Polo shirt for the Computer Studies Student Council, A.Y. 2026–2027.",
-    alt: "Polo shirt mockup split into a pink panel and a black panel, with the CSSC logo and the university seal.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "cssc-wizard", category: "pubmat", title: "CSSC Wizard Logo", year: null, ratio: "1:1", ...work("pubmat-cssc-wizard.jpg"),
-    description: "A Harry Potter themed take on the Computer Studies Student Council logo.",
-    alt: "The CSSC logo wearing round glasses and a wizard's hat, with a broomstick and wand crossed behind it, on purple.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "cake-nodes", category: "3d", title: "Caramel Cake — Shader Nodes", year: 2025, ratio: "16:9", ...work("3d-cake-editor.jpg"),
-    description: "The Blender node setup behind the cake's sponge texture, next to the finished render.",
-    alt: "Blender screenshot with a shader node graph on the left and the rendered cake slices on the right.",
-    tools: ["Blender"],
-  },
-  {
-    id: "dept-polo-wave", category: "design", title: "CCS Department Polo — Wave", year: null, ratio: "1:1", ...work("design-dept-shirt-wave.jpg"),
-    description: "An alternate department shirt in pink for the College of Computer Studies.",
-    alt: "Pink polo shirt mockup with dark flowing curves and a large vertical CCS wordmark.",
-    tools: [], // TODO: add the tools you used
-  },
-  {
-    id: "campaign", category: "pubmat", title: "Campaign Poster", year: null, ratio: "1:1", ...work("pubmat-campaign.jpg"),
-    description: "My own campaign pubmat for PRO-External of the Computer Studies Student Council.",
-    alt: "Campaign poster with Makheyl's portrait, the name Dela Cruz, PRO-External, and lists of awards and leadership roles.",
-    tools: [], // TODO: add the tools you used
-  },
-];
-
-/* ---------- GitHub contributions ----------
-   The home page asks CONTRIB_API for live numbers on every visit. This saved copy is
-   drawn first, and is what stays on screen if that service can't be reached.
-   days: only the days with activity, as "date": [contributions, level 1-4].
-   To refresh: open CONTRIB_API + "makheyl?y=last" and copy in the days whose count is above 0.
-*/
-const CONTRIB_API = "https://github-contributions-api.jogruber.de/v4/";
-const CONTRIB_WEEKS = 26; // about six months
-const CONTRIB_SNAPSHOT = {
-  updated: "2026-10-02",
-  days: {
-    "2026-07-21": [4, 1], "2026-07-22": [1, 1], "2026-07-23": [1, 1], "2026-07-24": [1, 1], "2026-07-25": [2, 1],
-    "2026-07-29": [3, 1], "2026-07-30": [1, 1], "2026-07-31": [1, 1], "2026-08-03": [3, 1], "2026-08-05": [13, 3],
-    "2026-08-13": [1, 1], "2026-08-24": [1, 1], "2026-08-25": [5, 1], "2026-08-26": [6, 2], "2026-08-28": [3, 1],
-    "2026-08-29": [9, 2], "2026-09-02": [2, 1], "2026-09-15": [4, 1], "2026-09-18": [18, 4], "2026-09-19": [4, 1],
-    "2026-09-22": [2, 1], "2026-09-23": [18, 4], "2026-09-24": [12, 3], "2026-09-25": [23, 4], "2026-09-27": [1, 1],
-    "2026-09-28": [2, 1], "2026-09-29": [12, 3], "2026-09-30": [2, 1], "2026-10-01": [5, 1], "2026-10-02": [1, 1],
-  },
-};
-
-/* ---------- Credentials ----------
-   Academic awards and leadership roles, shown on credentials.html.
-*/
-const AWARDS = [
-  { title: "Academic Excellence Award", detail: "1st Year" },
-  { title: "Dean's Lister", detail: "A.Y. 2024–2025" },
-  { title: "GAWAD III", detail: "Best Video Recap" },
-];
-
-const LEADERSHIP = [
-  {
-    initials: "CSSC",
-    org: "Computer Studies Student Council",
-    roles: [
-      "PRO, IT 3 – Game Development",
-      "Head of Creatives",
-      "Technical Head, Enrichment Seminar",
-      "Officer-in-Charge, Buntings",
-      "Merchandise Designer",
-      "Social Media Manager",
-    ],
-  },
-  {
-    initials: "SCE",
-    org: "Student Commission on Election",
-    roles: ["Technical Head, Miting de Avance"],
-  },
-  {
-    initials: "AWS",
-    org: "UPHSL AWS Learning Club",
-    roles: ["Head of Creatives", "Marketing Director"],
-  },
-  {
-    initials: "GDC",
-    org: "UPHSL Game Developers' Club",
-    roles: ["Multimedia Director"],
-  },
-];
-
-/* ---------- Certifications ----------
-   date: "YYYY-MM" or null; href: credential URL or null (link hidden when null)
-*/
-const CERTIFICATIONS = [
-  // TODO: add issue date and credential URL
-  { initials: "UN", name: "Unity Certified User: Artist", issuer: "Unity Technologies", date: null, href: null },
-  // TODO: add issue date and credential URL
-  { initials: "IC3", name: "IC3 Living Online — Global Standard 5", issuer: "Certiport", date: null, href: null },
-];
-
+// Only lets through links that are web, email, or on this site (form input can't inject javascript: URLs)
+function safeUrl(url) {
+  const u = String(url || "").trim();
+  if (/^(https?:|mailto:)/i.test(u)) return u;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(u) || u.startsWith("//")) return "#";
+  return u;
+}
 /* ==========================================================================
    Helpers
    ========================================================================== */
 // Motion is skipped when the visitor prefers reduced motion (or with ?reduced-motion for testing)
+// (also off when the owner turns animations off in the editor's appearance settings)
 const REDUCED_MOTION =
-  matchMedia("(prefers-reduced-motion: reduce)").matches || new URLSearchParams(location.search).has("reduced-motion");
+  matchMedia("(prefers-reduced-motion: reduce)").matches ||
+  new URLSearchParams(location.search).has("reduced-motion") ||
+  APPEARANCE.animations === false;
+if (APPEARANCE.galleryGrayscale === false) document.documentElement.dataset.gallery = "color";
 if (REDUCED_MOTION) document.documentElement.dataset.motion = "reduce";
 
 const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -664,7 +100,8 @@ function duration(start, end) {
 const THEME_KEY = "theme";
 
 function readTheme() {
-  try { return localStorage.getItem(THEME_KEY) || "system"; } catch { return "system"; }
+  const fallback = APPEARANCE.defaultTheme || "system";
+  try { return localStorage.getItem(THEME_KEY) || fallback; } catch { return fallback; }
 }
 
 function resolvedTheme() {
@@ -726,7 +163,7 @@ function setTheme(choice, origin) {
 function renderChrome(page) {
   const navLink = (item, withIcon) => {
     const current = item.id === page ? ' aria-current="page"' : "";
-    return `<li><a class="nav-link" href="${item.href}"${current}>
+    return `<li><a class="nav-link" href="${esc(safeUrl(item.href))}"${current}>
       <span class="nav-arrow" aria-hidden="true">→</span>
       ${withIcon ? icon(item.icon, "nav-icon") : ""}
       <span>${esc(item.label)}</span>
@@ -750,11 +187,14 @@ function renderChrome(page) {
       </div>
       <div class="sidebar-foot">
         <p>For work, collabs &amp; everything else, reach me at</p>
-        <a class="mail-link" href="mailto:${esc(SITE.email)}">${icon("mail")}<span>${esc(SITE.email)}</span></a>
-        <a class="mail-link" href="${esc(SITE.resume)}" target="_blank" rel="noopener">${icon("file-text")}<span>resume.pdf</span></a>
+        <a class="mail-link" href="${esc(safeUrl("mailto:" + SITE.email))}">${icon("mail")}<span>${esc(SITE.email)}</span></a>
+        <a class="mail-link" href="${esc(safeUrl(SITE.resume))}" target="_blank" rel="noopener">${icon("file-text")}<span>resume.pdf</span></a>
       </div>
     </div>`;
 
+  // re-rendering (owner editor): replace the top bar and backdrop instead of adding more
+  document.querySelector(".topbar")?.remove();
+  document.querySelector(".backdrop")?.remove();
   const topbar = document.createElement("header");
   topbar.className = "topbar";
   topbar.innerHTML = `
@@ -783,13 +223,17 @@ function renderChrome(page) {
   };
   btn.addEventListener("click", () => setOpen(!document.body.classList.contains("menu-open")));
   backdrop.addEventListener("click", () => setOpen(false));
-  document.addEventListener("keydown", (e) => {
+  if (!renderChrome.bound) document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && document.body.classList.contains("menu-open")) {
-      setOpen(false);
-      btn.focus();
+      const current = document.querySelector(".menu-btn"); // the live button, even after a re-render
+      document.body.classList.remove("menu-open");
+      current.setAttribute("aria-expanded", "false");
+      current.setAttribute("aria-label", "Open menu");
+      current.focus();
     }
   });
-  window.matchMedia("(min-width: 901px)").addEventListener("change", (e) => e.matches && setOpen(false));
+  if (!renderChrome.bound) window.matchMedia("(min-width: 901px)").addEventListener("change", (e) => e.matches && document.body.classList.remove("menu-open"));
+  renderChrome.bound = true;
 }
 
 function renderPageHeader(page) {
@@ -806,7 +250,7 @@ function renderPageHeader(page) {
    ========================================================================== */
 // Types text into a node one character at a time
 function typeText(node, text, speed = 45) {
-  if (REDUCED_MOTION) {
+  if (REDUCED_MOTION || document.documentElement.dataset.editing) {
     node.textContent = text;
     return;
   }
@@ -847,32 +291,41 @@ function renderHome() {
   const hero = document.getElementById("hero");
   hero.innerHTML = `
     <figure class="portrait reveal" data-reveal="wipe">
-      <img src="${SITE.portrait.src}" alt="${esc(SITE.portrait.alt)}" width="900" height="900" />
+      <img src="${esc(safeUrl(SITE.portrait.src))}" alt="${esc(SITE.portrait.alt)}" width="900" height="900" />
     </figure>
     <div>
-      <p class="status reveal"><span class="status-dot" aria-hidden="true"></span>${esc(SITE.status)}</p>
+      ${SITE.status && SITE.statusVisible !== false ? `<p class="status reveal"><span class="status-dot" aria-hidden="true"></span>${esc(SITE.status)}</p>` : ""}
       <h1 class="hero-name reveal">${esc(SITE.name)}</h1>
       <div class="hero-intro">${SITE.intro.map((p) => `<p class="reveal">${esc(p)}</p>`).join("")}</div>
       <div class="social reveal">
         ${SITE.social
           .map((s) => {
             const ext = s.href.startsWith("http") || s.href.endsWith(".pdf") ? ' target="_blank" rel="noopener noreferrer"' : "";
-            return `<a class="ext" href="${esc(s.href)}"${ext}>${esc(s.label)}</a>`;
+            return `<a class="ext" href="${esc(safeUrl(s.href))}"${ext}>${esc(s.label)}</a>`;
           })
           .join("")}
       </div>
     </div>`;
 
+  // home sections, in the order and with the visibility set in CONTENT.home
+  const sections = HOME.sections && HOME.sections.length ? HOME.sections : [
+    { id: "stats" }, { id: "contrib" }, { id: "projects" }, { id: "creative" }, { id: "experience" }, { id: "stack" },
+  ];
+  const setting = (id) => sections.find((x) => x.id === id) || { visible: false };
+  const isOn = (id) => setting(id).visible !== false;
+  const count = (id, fallback) => Number(setting(id).count) || fallback;
+
   const stats = document.getElementById("stats");
+  stats.hidden = !isOn("stats") || !STATS.length;
   stats.innerHTML = STATS.map((s) => {
     const m = /^(\d+)(\+?)$/.exec(s.value); // plain numbers count up
     const value = m ? `<span data-count="${m[1]}" data-suffix="${m[2]}">${esc(s.value)}</span>` : esc(s.value);
-    return `<a class="stat reveal" href="${s.href}" aria-label="${esc(s.value)} ${esc(s.label)}">
+    return `<a class="stat reveal" href="${esc(safeUrl(s.href))}" aria-label="${esc(s.value)} ${esc(s.label)}">
       <div class="stat-value">${value}<sup aria-hidden="true">↗</sup></div>
       <div class="stat-label">${esc(s.label)}</div>
     </a>`;
   }).join("");
-  if (!REDUCED_MOTION) {
+  if (!REDUCED_MOTION && !document.documentElement.dataset.editing) {
     stats.querySelectorAll(".stat").forEach((stat) => {
       const num = stat.querySelector("[data-count]");
       if (!num) return;
@@ -882,10 +335,12 @@ function renderHome() {
   }
 
   const divider = document.querySelector(".dot-divider");
+  document.getElementById("contrib")?.remove(); // when re-rendering
   if (divider) {
     divider.classList.add("reveal");
     divider.dataset.reveal = "draw";
-    renderContributions(divider);
+    divider.hidden = stats.hidden;
+    if (isOn("contrib")) renderContributions(divider);
   }
 
   const section = (num, title, href, body) => `
@@ -897,45 +352,52 @@ function renderHome() {
       ${body}
     </section>`;
 
-  const projectRows = PROJECTS.slice(0, 3)
-    .map(
-      (p) => `<a class="preview-row reveal" href="projects.html#${p.id}">
-        <div><div class="preview-row-title">${esc(p.name)} — ${esc(p.subtitle)}</div>
-        <div class="preview-row-sub">${esc(p.description)}</div></div>
-        <div class="preview-row-meta">${esc(p.badge.toLowerCase())}</div>
-      </a>`
-    )
+  const bodies = {
+    projects: () =>
+      PROJECTS.slice(0, count("projects", 3))
+        .map(
+          (p) => `<a class="preview-row reveal" href="projects.html#${esc(p.id)}">
+          <div><div class="preview-row-title">${esc(p.name)}${p.subtitle ? ` — ${esc(p.subtitle)}` : ""}</div>
+          <div class="preview-row-sub">${esc(p.description)}</div></div>
+          <div class="preview-row-meta">${esc((p.badge || "").toLowerCase())}</div>
+        </a>`
+        )
+        .join(""),
+    creative: () =>
+      `<div class="strip">${CREATIVE.filter((w) => w.featured)
+        .slice(0, count("creative", 4))
+        .map((w) => {
+          const cat = CREATIVE_CATEGORIES.find((c) => c.id === w.category) || { singular: "" };
+          return `<a class="strip-item reveal" data-reveal="pop" href="creative.html#${esc(w.id)}" aria-label="${esc(w.title)}, ${esc(cat.singular)}">
+            <span class="work-media">${workMedia(w)}</span>
+            <span class="strip-cap">${esc(cat.singular)}</span>
+          </a>`;
+        })
+        .join("")}</div>`,
+    experience: () =>
+      EXPERIENCE.slice(0, count("experience", 3))
+        .map((x) => {
+          const r = x.roles[0] || {};
+          return `<a class="preview-row reveal" href="experience.html#${esc(x.id)}">
+          <div><div class="preview-row-title">${esc(x.org)}</div>
+          <div class="preview-row-sub">${esc(r.title || "")}</div></div>
+          <div class="preview-row-meta">${esc(r.dateText || (r.start ? `${fmtYm(r.start)} – ${r.end ? fmtYm(r.end) : "now"}` : "")).toLowerCase()}</div>
+        </a>`;
+        })
+        .join(""),
+    stack: () =>
+      `<div class="preview-chips tag-list" data-stagger>${STACK.slice(0, count("stack", 3))
+        .flatMap((g) => g.items.slice(0, 3))
+        .map((t) => `<span class="tag">${esc(t)}</span>`)
+        .join("")}</div>`,
+  };
+  const pages = { projects: "projects.html", creative: "creative.html", experience: "experience.html", stack: "stack.html" };
+
+  let n = 0;
+  document.getElementById("previews").innerHTML = sections
+    .filter((x) => bodies[x.id] && x.visible !== false)
+    .map((x) => section(String(++n).padStart(2, "0"), x.id, pages[x.id], bodies[x.id]()))
     .join("");
-
-  const creativeStrip = `<div class="strip">${CREATIVE.filter((w) => w.featured)
-    .slice(0, 4)
-    .map((w) => {
-      const cat = CREATIVE_CATEGORIES.find((c) => c.id === w.category);
-      return `<a class="strip-item reveal" data-reveal="pop" href="creative.html#${w.id}" aria-label="${esc(w.title)}, ${esc(cat.singular)}">
-        <span class="work-media">${workMedia(w)}</span>
-        <span class="strip-cap">${esc(cat.singular)}</span>
-      </a>`;
-    })
-    .join("")}</div>`;
-
-  const expRows = EXPERIENCE.slice(0, 3).map((x) => {
-    const r = x.roles[0];
-    return `<a class="preview-row reveal" href="experience.html#${x.id}">
-      <div><div class="preview-row-title">${esc(x.org)}</div>
-      <div class="preview-row-sub">${esc(r.title)}</div></div>
-      <div class="preview-row-meta">${esc(r.dateText || `${fmtYm(r.start)} – ${r.end ? fmtYm(r.end) : "now"}`).toLowerCase()}</div>
-    </a>`;
-  }).join("");
-
-  const stackChips = `<div class="preview-chips tag-list" data-stagger>${STACK.slice(0, 3).flatMap((g) => g.items.slice(0, 3))
-    .map((t) => `<span class="tag">${esc(t)}</span>`)
-    .join("")}</div>`;
-
-  document.getElementById("previews").innerHTML =
-    section("01", "projects", "projects.html", projectRows) +
-    section("02", "creative", "creative.html", creativeStrip) +
-    section("03", "experience", "experience.html", expRows) +
-    section("04", "stack", "stack.html", stackChips);
 }
 
 /* ==========================================================================
@@ -994,7 +456,7 @@ function renderContributions(after) {
   section.innerHTML = `
     <div class="contrib-head reveal">
       <h2 class="label" id="contrib-title">GitHub contributions</h2>
-      <a class="contrib-link ext" href="${esc(SITE.github)}" target="_blank" rel="noopener noreferrer">@${esc(SITE.githubUser)}</a>
+      <a class="contrib-link ext" href="${esc(safeUrl(SITE.github))}" target="_blank" rel="noopener noreferrer">@${esc(SITE.githubUser)}</a>
     </div>
     <div class="contrib-body">
       <div class="contrib-months" aria-hidden="true">${months.map((m) => `<span style="grid-column:${m.w + 1}">${m.name}</span>`).join("")}</div>
@@ -1070,7 +532,7 @@ function renderContributions(after) {
    Click pulse: a small ripple wherever empty space is clicked
    ========================================================================== */
 function initPulse() {
-  if (REDUCED_MOTION) return;
+  if (REDUCED_MOTION || APPEARANCE.clickPulse === false) return;
   const interactive =
     'a, button, input, textarea, select, label, summary, video, audio, dialog, [role="button"], [contenteditable], .contrib-cell';
   document.addEventListener("click", (e) => {
@@ -1097,7 +559,7 @@ function renderProjects() {
   const btn = (l) => {
     const isGh = l.type === "github";
     const text = l.label || (isGh ? "source" : "live demo");
-    return `<a class="action-btn${isGh ? "" : " is-ghost"}" href="${esc(l.href)}"${l.href.startsWith("http") ? ' target="_blank" rel="noopener noreferrer"' : ""}>
+    return `<a class="action-btn${isGh ? "" : " is-ghost"}" href="${esc(safeUrl(l.href))}"${l.href.startsWith("http") ? ' target="_blank" rel="noopener noreferrer"' : ""}>
       ${icon(isGh ? "code-xml" : "arrow-up-right")}<span>${esc(text)}</span>
     </a>`;
   };
@@ -1107,7 +569,7 @@ function renderProjects() {
     <article class="project reveal" id="${p.id}" aria-labelledby="${p.id}-title">
       <div class="project-top">
         <div class="project-icon">
-          ${p.image ? `<img src="${esc(p.image)}" alt="" />` : icon(p.icon)}
+          ${p.image ? `<img src="${esc(safeUrl(p.image))}" alt="" />` : icon(p.icon)}
         </div>
         <div>
           <div class="badges" data-stagger>
@@ -1203,7 +665,7 @@ function renderGear() {
     (g) => `
     <article class="gear-card reveal">
       <div class="gear-media">
-        ${g.image ? `<img src="${esc(g.image)}" alt="${esc(g.name)}" loading="lazy" />` : icon(g.icon)}
+        ${g.image ? `<img src="${esc(safeUrl(g.image))}" alt="${esc(g.name)}" loading="lazy" />` : icon(g.icon)}
       </div>
       <h2 class="gear-name">${esc(g.name)}</h2>
       <p class="gear-spec">${esc(g.spec)}</p>
@@ -1267,7 +729,7 @@ function renderCredentials() {
     </section>`;
 
   // the summary numbers count up as they appear
-  if (!REDUCED_MOTION) {
+  if (!REDUCED_MOTION && !document.documentElement.dataset.editing) {
     document.querySelectorAll(".cred-stats .stat").forEach((stat) => {
       const num = stat.querySelector("[data-count]");
       num.textContent = "0";
@@ -1288,7 +750,7 @@ function renderCertifications() {
         <h2 class="tl-org">${esc(c.name)}</h2>
         <p class="tl-meta">${esc(c.issuer)}</p>
         ${c.date ? `<p class="role-dates">Issued ${fmtYm(c.date)}</p>` : ""}
-        ${c.href ? `<a class="cred-link ext" href="${esc(c.href)}" target="_blank" rel="noopener noreferrer">view credential</a>` : ""}
+        ${c.href ? `<a class="cred-link ext" href="${esc(safeUrl(c.href))}" target="_blank" rel="noopener noreferrer">view credential</a>` : ""}
       </div>
     </article>`
   ).join("");
@@ -1388,15 +850,29 @@ function placeholderArt(item) {
   return `<svg class="ph-art" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${art}</svg>`;
 }
 
+// YouTube / Vimeo links → their embeddable player URL (null for anything else)
+function videoEmbed(url) {
+  const u = String(url || "");
+  const yt = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{11})/.exec(u);
+  if (yt) return `https://www.youtube-nocookie.com/embed/${yt[1]}`;
+  const vimeo = /vimeo\.com\/(?:video\/)?(\d+)/.exec(u);
+  if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}`;
+  return null;
+}
+
 // The picture for a work. In the grid: its thumbnail. Opened (full): the full image,
 // or the video player. Without an image: generated placeholder art.
 function workMedia(item, { full = false, alt = "" } = {}) {
   if (!item.image) return `<span class="ph">${placeholderArt(item)}<span class="ph-tag">placeholder</span></span>`;
   if (full && item.video) {
-    return `<video src="${esc(item.video)}" poster="${esc(item.image)}" controls playsinline preload="metadata" aria-label="${esc(alt)}"></video>`;
+    const embed = videoEmbed(item.video);
+    if (embed) {
+      return `<iframe src="${esc(embed)}" title="${esc(alt)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+    }
+    return `<video src="${esc(safeUrl(item.video))}" poster="${esc(safeUrl(item.image))}" controls playsinline preload="metadata" aria-label="${esc(alt)}"></video>`;
   }
   const src = full ? item.image : item.thumb || item.image;
-  return `<img src="${esc(src)}" alt="${esc(alt)}" ${full ? "" : 'loading="lazy" '}/>`;
+  return `<img src="${esc(safeUrl(src))}" alt="${esc(alt)}" ${full ? "" : 'loading="lazy" '}/>`;
 }
 
 function renderCreative() {
@@ -1663,25 +1139,113 @@ function initReveal() {
 /* ==========================================================================
    Boot
    ========================================================================== */
+/* ==========================================================================
+   Owner access
+   Long-press the "Makheyl" name (about a second) to reach the owner sign-in.
+   Visitors never load the editor: it loads only after the server confirms
+   the GitHub sign-in (see api/auth/*).
+   ========================================================================== */
+function showOwnerPrompt() {
+  if (document.querySelector(".owner-prompt")) return;
+  const back = location.pathname + location.search;
+  const box = document.createElement("div");
+  box.className = "owner-prompt";
+  box.setAttribute("role", "dialog");
+  box.setAttribute("aria-label", "Owner sign-in");
+  box.innerHTML = `
+    <p class="owner-prompt-title">Owner sign-in</p>
+    <p class="owner-prompt-text">Editing is limited to the site owner's GitHub account.</p>
+    <div class="owner-prompt-actions">
+      <a class="action-btn" href="/api/auth/login?return=${encodeURIComponent(back)}">${icon("log-in")}<span>Continue with GitHub</span></a>
+      <button type="button" class="action-btn is-ghost">Cancel</button>
+    </div>`;
+  document.body.append(box);
+  if (window.lucide) window.lucide.createIcons();
+  const close = () => box.remove();
+  box.querySelector("button").addEventListener("click", close);
+  document.addEventListener("keydown", function onKey(e) {
+    if (e.key === "Escape") { close(); document.removeEventListener("keydown", onKey); }
+  });
+  box.querySelector("a").focus();
+}
+
+function initOwner() {
+  let timer = null;
+  let origin = null;
+  document.addEventListener("pointerdown", (e) => {
+    const brand = e.target.closest(".brand");
+    if (!brand) return;
+    origin = { x: e.clientX, y: e.clientY };
+    timer = setTimeout(() => {
+      timer = null;
+      brand.dataset.longpress = "1"; // swallow the click that follows the long-press
+      showOwnerPrompt();
+    }, 900);
+  });
+  const cancel = () => { clearTimeout(timer); timer = null; };
+  document.addEventListener("pointerup", cancel);
+  document.addEventListener("pointercancel", cancel);
+  document.addEventListener("pointermove", (e) => {
+    if (timer && origin && Math.hypot(e.clientX - origin.x, e.clientY - origin.y) > 10) cancel();
+  });
+  document.addEventListener("click", (e) => {
+    const brand = e.target.closest(".brand");
+    if (brand && brand.dataset.longpress) {
+      e.preventDefault();
+      delete brand.dataset.longpress;
+    }
+  }, true);
+  document.addEventListener("contextmenu", (e) => e.target.closest(".brand") && e.preventDefault());
+
+  // Signed-in owner: load the editor (the cookie is only a hint; the server decides)
+  if (!/(?:^|;\s*)mk_owner=1/.test(document.cookie)) return;
+  fetch("/api/auth/me", { credentials: "same-origin" })
+    .then((res) => (res.ok ? res.json() : null))
+    .then((me) => {
+      if (!me || !me.owner) return;
+      const css = document.createElement("link");
+      css.rel = "stylesheet";
+      css.href = "editor/editor.css";
+      document.head.append(css);
+      import("./editor/editor.js").then((m) => m.startEditor(me)).catch((err) => console.error("Editor failed to load", err));
+    })
+    .catch(() => {});
+}
+
+const PAGE_RENDERERS = {
+  home: () => renderHome(),
+  projects: () => renderProjects(),
+  creative: () => renderCreative(),
+  experience: () => renderExperience(),
+  stack: () => renderStack(),
+  gear: () => renderGear(),
+  certifications: () => renderCertifications(),
+  credentials: () => renderCredentials(),
+};
+
+// Redraws the current page from window.CONTENT without reloading (used by the owner editor).
+// Entry animations are skipped: everything is shown in its final state.
+function renderPage({ showHidden = false } = {}) {
+  const page = document.body.dataset.page;
+  bindContent(window.CONTENT, { showHidden });
+  renderChrome(page);
+  renderPageHeader(page);
+  PAGE_RENDERERS[page]?.();
+  if (window.lucide) window.lucide.createIcons();
+  document.querySelectorAll(".reveal, [data-stagger], [data-watch]").forEach((el) => el.classList.add("is-visible"));
+  document.dispatchEvent(new CustomEvent("pagerendered"));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const page = document.body.dataset.page;
   renderChrome(page);
   renderPageHeader(page);
-
-  ({
-    home: renderHome,
-    projects: renderProjects,
-    creative: renderCreative,
-    experience: renderExperience,
-    stack: renderStack,
-    gear: renderGear,
-    certifications: renderCertifications,
-    credentials: renderCredentials,
-  })[page]?.();
+  PAGE_RENDERERS[page]?.();
 
   if (window.lucide) window.lucide.createIcons();
   initReveal();
   initPulse();
+  initOwner();
 
   // re-scroll to hash targets after content renders
   if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
