@@ -11,10 +11,10 @@ window.CONTENT = {
     "github": "https://github.com/makheyl",
     "githubUser": "makheyl",
     "resume": "assets/resume.pdf",
-    "status": "Developer intern at CloudSwyft",
+    "status": "Building SaaS for startups and competitions",
     "intro": [
-      "I'm a web developer who loves building SaaS products and full-stack web apps. I'm currently a developer intern at CloudSwyft and a 4th-year BSIT student specializing in game development.",
-      "Right now I'm building KolektaPH, a garbage truck tracker for Carmona, and Folio, an editor for interactive ebooks, alongside SDG-aligned capstone games at school. I love turning rough ideas into things people actually use."
+      "I'm an independent builder focused on SaaS products for startups and competition-driven products. I recently finished a developer internship at CloudSwyft, and I'm a 4th-year BSIT student specializing in game development.",
+      "Right now I'm building SaaS products for startups and competitions, like JobMatch and KolektaPH, alongside SDG-aligned capstone games at school. I love turning rough ideas into things people actually use."
     ],
     "social": [
       {
@@ -169,9 +169,9 @@ window.CONTENT = {
       "href": "experience.html#uphsl"
     },
     {
-      "value": "Intern",
-      "label": "@ CloudSwyft",
-      "href": "experience.html#cloudswyft"
+      "value": "SaaS",
+      "label": "For startups",
+      "href": "projects.html"
     }
   ],
   "projects": [
@@ -202,6 +202,36 @@ window.CONTENT = {
         "MapLibre",
         "Zustand",
         "TanStack Query",
+        "PWA"
+      ]
+    },
+    {
+      "id": "jobmatch",
+      "name": "JobMatch",
+      "subtitle": "Job Matching for Biñan",
+      "description": "Job matching and career guidance for Biñan, Laguna: one installable web app for job seekers, employers, and administrators, with match scores and fair-hiring rules enforced on the server. A finalist in the Biñan StartUp Competition.",
+      "badge": "Finalist",
+      "tags": [
+        "Biñan StartUp Competition",
+        "SaaS"
+      ],
+      "icon": "briefcase",
+      "image": null,
+      "links": [
+        {
+          "type": "github",
+          "href": "https://github.com/makheyl/JobMatch"
+        },
+        {
+          "type": "demo",
+          "href": "https://jobmatch-amber-kappa.vercel.app"
+        }
+      ],
+      "builtWith": [
+        "JavaScript",
+        "Supabase",
+        "PostgreSQL",
+        "TypeScript",
         "PWA"
       ]
     },
@@ -472,7 +502,7 @@ window.CONTENT = {
       "id": "cloudswyftcrm",
       "name": "CloudSwyftCRM",
       "subtitle": "Internal CRM",
-      "description": "An internal CRM with SharePoint data, automated flows, and interactive email campaigns with CSAT ratings.",
+      "description": "An internal CRM I built during my completed internship at CloudSwyft: a Power Apps Canvas App with Microsoft Lists and SharePoint for its data, and Power Automate for automated flows and interactive email campaigns with CSAT ratings.",
       "badge": "Internship",
       "tags": [
         "Internal tool"
@@ -482,7 +512,8 @@ window.CONTENT = {
       "links": [],
       "note": "Internal to CloudSwyft, not publicly available",
       "builtWith": [
-        "Power Apps",
+        "Power Apps (Canvas App)",
+        "Microsoft Lists",
         "SharePoint",
         "Power Automate",
         "Adaptive Cards"
@@ -791,15 +822,16 @@ window.CONTENT = {
         {
           "title": "Developer Intern",
           "start": "2026-07",
-          "end": null,
-          "description": "Contributing to CloudSwyftCRM, an internal CRM with SharePoint data, automated flows, and interactive email campaigns that collect CSAT ratings.",
+          "end": "2026-11",
+          "description": "Built CloudSwyftCRM, an internal CRM, as a Canvas App in Microsoft Power Apps, using Microsoft Lists and SharePoint for its data and Power Automate for automated flows and interactive email campaigns that collected CSAT ratings.",
           "skills": [
+            "Power Apps (Canvas App)",
+            "Microsoft Lists",
             "SharePoint",
             "Power Automate",
-            "Power Apps",
             "Adaptive Cards"
           ],
-          "visibleSkills": 2
+          "visibleSkills": 3
         }
       ]
     },
