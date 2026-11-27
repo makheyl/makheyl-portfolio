@@ -248,7 +248,7 @@ window.CONTENT = {
         "SDG 11"
       ],
       "icon": "sailboat",
-      "image": null,
+      "image": "assets/projects/bayanihan.svg",
       "links": [
         {
           "type": "github",
