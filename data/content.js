@@ -236,8 +236,8 @@ window.CONTENT = {
       ]
     },
     {
-      "id": "folio",
-      "name": "Folio",
+      "id": "inkbug",
+      "name": "Inkbug",
       "subtitle": "Interactive Ebook Editor",
       "description": "A browser-based editor for interactive, animated ebooks, like a simplified Canva built around book pages. Every book exports as one standalone HTML file that works offline with no install or account.",
       "badge": "Web app",
@@ -246,7 +246,7 @@ window.CONTENT = {
         "Offline export"
       ],
       "icon": "book-open",
-      "image": null,
+      "image": "assets/projects/inkbug.svg",
       "links": [
         {
           "type": "github",
