@@ -236,6 +236,47 @@ window.CONTENT = {
       ]
     },
     {
+      "id": "bayanihan",
+      "name": "Bayanihan",
+      "subtitle": "Disaster Rescue Game",
+      "description": "Our capstone: a phone-first flood-rescue game in Unity 6 by ELEV8 GAMES. Take the rescue boat through a flooded Barangay Mabuhay in Carmona, Cavite, rebuilt from OpenStreetMap, then find stranded residents, treat and tow them, and bring them to the evacuation hall before time runs out. I lead the team, lead development, and make the game assets, and I wrote most of the code in the repository.",
+      "badge": "Capstone",
+      "tags": [
+        "Team lead",
+        "Lead developer",
+        "Asset maker",
+        "SDG 11"
+      ],
+      "icon": "sailboat",
+      "image": null,
+      "links": [
+        {
+          "type": "github",
+          "href": "https://github.com/nail-ambrew/Bayanihan"
+        },
+        {
+          "type": "demo",
+          "href": "https://bayanihan-rescuegame.vercel.app",
+          "label": "web prototype"
+        },
+        {
+          "type": "github",
+          "href": "https://github.com/makheyl/Group08_DatabaseConnectivity",
+          "label": "3D + db prototype"
+        }
+      ],
+      "builtWith": [
+        "Unity 6",
+        "C#",
+        "URP",
+        "Cinemachine",
+        "Timeline",
+        "Blender",
+        "Unity Gaming Services",
+        "OpenStreetMap"
+      ]
+    },
+    {
       "id": "inkbug",
       "name": "Inkbug",
       "subtitle": "Interactive Ebook Editor",
@@ -447,40 +488,6 @@ window.CONTENT = {
       "builtWith": [
         "JavaScript",
         "Canvas 2D"
-      ]
-    },
-    {
-      "id": "bayanihan",
-      "name": "Bayanihan",
-      "subtitle": "Disaster Rescue",
-      "description": "Take a bangka through a flooded coastal barangay, rescue stranded residents, and ferry them to the evacuation center. A separate 3D prototype saves each mission to a Supabase leaderboard.",
-      "badge": "Capstone",
-      "tags": [
-        "SDG 11",
-        "Prototype"
-      ],
-      "icon": "sailboat",
-      "image": null,
-      "links": [
-        {
-          "type": "github",
-          "href": "https://github.com/makheyl/bayanihan-rescuegame"
-        },
-        {
-          "type": "demo",
-          "href": "https://bayanihan-rescuegame.vercel.app"
-        },
-        {
-          "type": "github",
-          "href": "https://github.com/makheyl/Group08_DatabaseConnectivity",
-          "label": "3D + db prototype"
-        }
-      ],
-      "builtWith": [
-        "JavaScript",
-        "Canvas 2D",
-        "Three.js",
-        "Supabase"
       ]
     },
     {
