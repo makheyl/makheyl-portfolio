@@ -14,7 +14,7 @@ window.CONTENT = {
     "status": "Building SaaS for startups and competitions",
     "intro": [
       "I'm an independent builder focused on SaaS products for startups and competition-driven products. I recently finished a developer internship at CloudSwyft, and I'm a 4th-year BSIT student specializing in game development.",
-      "Right now I'm building SaaS products for startups and competitions, like JobMatch and KolektaPH, alongside SDG-aligned capstone games at school. I love turning rough ideas into things people actually use."
+      "Right now I'm building SaaS products for startups and competitions, like KolektaPH, and JobMatch, a mobile and web application, alongside SDG-aligned capstone games at school. I love turning rough ideas into things people actually use."
     ],
     "social": [
       {
@@ -209,14 +209,14 @@ window.CONTENT = {
       "id": "jobmatch",
       "name": "JobMatch",
       "subtitle": "Job Matching for Biñan",
-      "description": "Job matching and career guidance for Biñan, Laguna: one installable web app for job seekers, employers, and administrators, with match scores and fair-hiring rules enforced on the server. A finalist in the Biñan StartUp Competition.",
+      "description": "Job matching and career guidance for Biñan, Laguna: a mobile and web application for job seekers, employers, and administrators, with match scores and fair-hiring rules enforced on the server. A finalist in the Biñan StartUp Competition.",
       "badge": "Finalist",
       "tags": [
         "Biñan StartUp Competition",
-        "SaaS"
+        "Mobile and web application"
       ],
       "icon": "briefcase",
-      "image": null,
+      "image": "assets/projects/jobmatch.svg",
       "links": [
         {
           "type": "github",
