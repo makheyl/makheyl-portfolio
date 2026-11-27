@@ -13,7 +13,7 @@ window.CONTENT = {
     "resume": "assets/resume.pdf",
     "status": "Building SaaS for startups and competitions",
     "intro": [
-      "I'm an independent builder focused on SaaS products for startups and competition-driven products. I recently finished a developer internship at CloudSwyft, and I'm a 4th-year BSIT student specializing in game development.",
+      "I'm an independent builder focused on SaaS products for startups and competitions. I recently finished a developer internship at CloudSwyft, and I'm a 4th-year BSIT student specializing in game development.",
       "Right now I'm building SaaS products for startups and competitions, like KolektaPH, and JobMatch, a mobile and web application, alongside SDG-aligned capstone games at school. I love turning rough ideas into things people actually use."
     ],
     "social": [
